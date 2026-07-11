@@ -1,0 +1,302 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// ==========================================
+// CODEBREAKDOWNS MASTER SCHEMA
+// ==========================================
+
+
+// ------------------------------------------
+// 1. USERS (Identity & Auth)
+// ------------------------------------------
+
+enum Role {
+  STUDENT
+  ADMIN
+  PROMOTER
+}
+
+model User {
+  id                       String    @id @default(uuid())
+  email                    String    @unique
+  name                     String
+  avatarUrl                String?
+  role                     Role      @default(STUDENT)
+  isActive                 Boolean   @default(true) // For soft-deletes
+  
+  // Commerce, Affiliates & Payouts
+  paymentGatewayCustomerId String?   @unique // Razorpay Customer ID
+  referralCode             String?   @unique // The code promoters give out
+  payoutUpiId              String?   // Where Admins send promoter earnings
+  
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  // Relationship Hub
+  accounts                 Account[]
+  lessonProgress           LessonProgress[]
+  chapterStates            ChapterState[]
+  receipts                 UserProduct[]
+  interviewPasses          InterviewPass[]
+  interviewBookings        InterviewBooking[]
+  referralsMade            Referral[]         @relation("PromoterReferrals")
+  referralsUsed            Referral[]         @relation("StudentReferrals")
+  payoutRequests           PayoutRequest[]
+}
+
+model Account {
+  // Required by NextAuth for OAuth integrations (GitHub, Google)
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+// ------------------------------------------
+// 2. COURSES (Static Content)
+// ------------------------------------------
+
+model Course {
+  id                    String          @id @default(uuid())
+  title                 String
+  description           String?
+  isPublished           Boolean         @default(false)
+  enforceLinearProgress Boolean         @default(false) // Strict mode toggle
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  chapters              Chapter[]
+  bundles               ProductCourse[]
+}
+
+model Chapter {
+  id          String         @id @default(uuid())
+  courseId    String
+  title       String
+  sortOrder   Int            // E.g., 1, 2, 3... used to enforce linear unlocks
+  
+  course      Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+  states      ChapterState[]
+
+  @@unique([courseId, sortOrder])
+}
+
+model Lesson {
+  id                      String           @id @default(uuid())
+  chapterId               String
+  title                   String
+  videoUrlOrId            String
+  durationSeconds         Int
+  explanationEndSeconds   Int              // Threshold to enable the 'Mark Complete' checkbox
+  sortOrder               Int
+  
+  chapter                 Chapter          @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  progress                LessonProgress[]
+
+  @@unique([chapterId, sortOrder])
+}
+
+// ------------------------------------------
+// 3. PAYMENTS (Commerce Engine)
+// ------------------------------------------
+
+model Product {
+  // The actual item sold on the pricing page
+  id          String          @id @default(uuid())
+  title       String
+  priceInr    Int
+  isActive    Boolean         @default(true)
+  
+  courses     ProductCourse[]
+  owners      UserProduct[]
+}
+
+model ProductCourse {
+  // The Map: Defines which courses are inside a bundle/product
+  productId   String
+  courseId    String
+
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  course      Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([productId, courseId])
+}
+
+model UserProduct {
+  // The Receipt: Proves a user bought a product
+  id            String      @id @default(uuid())
+  userId        String
+  productId     String
+  transactionId String      @unique // Stripe/Razorpay Txn ID
+  validUntil    DateTime?   // Null = Lifetime access
+  createdAt     DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  referrals     Referral[] 
+}
+
+model Coupon {
+  id                 String    @id @default(uuid())
+  code               String    @unique
+  discountPercentage Int
+  maxUses            Int?
+  timesUsed          Int       @default(0)
+  validUntil         DateTime?
+  isActive           Boolean   @default(true)
+}
+
+// ------------------------------------------
+// 4. PROGRESS (Execution State)
+// ------------------------------------------
+
+model LessonProgress {
+  // Micro-tracker (updates every 30 seconds)
+  userId                String
+  lessonId              String
+  highestTimestampSecs  Int      @default(0)
+  isCompleted           Boolean  @default(false)
+  isBookmarked          Boolean  @default(false)
+  updatedAt             DateTime @updatedAt // Used to sort "Continue Watching" row
+
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson                Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@id([userId, lessonId]) // Composite Primary Key
+}
+
+model ChapterState {
+  // Macro-tracker (The save-game state for fast dashboard loading)
+  userId      String
+  chapterId   String
+  isUnlocked  Boolean @default(false)
+  isCompleted Boolean @default(false)
+
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter     Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@id([userId, chapterId]) // Composite Primary Key
+}
+
+// ------------------------------------------
+// 5. INTERVIEWS (Coaching Engine)
+// ------------------------------------------
+
+enum SlotStatus {
+  AVAILABLE
+  BOOKED
+  COMPLETED
+}
+
+enum PassStatus {
+  ACTIVE
+  EXHAUSTED
+  EXPIRED
+}
+
+enum BookingStatus {
+  SCHEDULED
+  COMPLETED
+  NO_SHOW
+  CANCELLED
+}
+
+model InterviewSlot {
+  id        String             @id @default(uuid())
+  startTime DateTime
+  status    SlotStatus         @default(AVAILABLE)
+  bookings  InterviewBooking[]
+}
+
+model InterviewPass {
+  // Prepaid wallet for discounted bundles
+  id            String             @id @default(uuid())
+  userId        String
+  totalCredits  Int                @default(3)
+  usedCredits   Int                @default(0)
+  validUntil    DateTime
+  transactionId String
+  status        PassStatus         @default(ACTIVE)
+
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookings      InterviewBooking[]
+}
+
+model InterviewBooking {
+  id            String         @id @default(uuid())
+  userId        String
+  slotId        String
+  meetingUrl    String?        // Zoom/Google Meet link
+  status        BookingStatus  @default(SCHEDULED)
+  
+  // Payment source: either a direct transaction OR a burned pass credit
+  transactionId String?
+  passId        String?
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slot          InterviewSlot  @relation(fields: [slotId], references: [id])
+  pass          InterviewPass? @relation(fields: [passId], references: [id])
+}
+
+// ------------------------------------------
+// 6. REFERRALS (Affiliate Engine)
+// ------------------------------------------
+
+enum ReferralStatus {
+  PENDING
+  CLEARED
+  REFUNDED
+}
+
+enum PayoutStatus {
+  REQUESTED
+  PROCESSING
+  PAID
+  REJECTED
+}
+
+model Referral {
+  id                  String         @id @default(uuid())
+  promoterId          String
+  studentId           String
+  userProductId       String         // Links commission to the exact receipt
+  promoterEarningsInr Int            // E.g., 300
+  studentDiscountInr  Int            // E.g., 200
+  status              ReferralStatus @default(PENDING) // 14-day hold to prevent refund fraud
+  createdAt           DateTime       @default(now())
+
+  promoter            User           @relation("PromoterReferrals", fields: [promoterId], references: [id])
+  student             User           @relation("StudentReferrals", fields: [studentId], references: [id])
+  receipt             UserProduct    @relation(fields: [userProductId], references: [id])
+}
+
+model PayoutRequest {
+  id               String       @id @default(uuid())
+  promoterId       String
+  amountInr        Int
+  status           PayoutStatus @default(REQUESTED)
+  paymentReference String?      // UTR / Transaction ID pasted by Admin upon manual transfer
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  promoter         User         @relation(fields: [promoterId], references: [id])
+}
