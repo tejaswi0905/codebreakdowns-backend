@@ -104,9 +104,11 @@ model Lesson {
   id                      String           @id @default(uuid())
   chapterId               String
   title                   String
+  isProblem               Boolean          @default(false)
+  problemUrl              String?
   videoUrlOrId            String
   durationSeconds         Int
-  explanationEndSeconds   Int              // Threshold to enable the 'Mark Complete' checkbox
+  explanationEndSeconds   Int?              // Threshold to enable the 'Mark Complete' checkbox
   sortOrder               Int
   
   chapter                 Chapter          @relation(fields: [chapterId], references: [id], onDelete: Cascade)

@@ -37,6 +37,6 @@ export const errorHandler = (
     success: false,
     error: message,
     // Only send the stack trace (file/line numbers) to the frontend if we are in development!
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    ...(process.env.NODE_ENV === "dev" && { stack: err.stack }),
   });
 };
