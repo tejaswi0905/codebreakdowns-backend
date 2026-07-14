@@ -1,1 +1,1 @@
-console.log("Hello world");
+import { prisma } from "./config/prisma.js";

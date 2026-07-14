@@ -77,6 +77,7 @@ model Account {
 model Course {
   id                    String          @id @default(uuid())
   title                 String
+  imageUrl              String?
   description           String?
   isPublished           Boolean         @default(false)
   enforceLinearProgress Boolean         @default(false) // Strict mode toggle
@@ -125,6 +126,7 @@ model Product {
   // The actual item sold on the pricing page
   id          String          @id @default(uuid())
   title       String
+  imageUrl    String?
   priceInr    Int
   isActive    Boolean         @default(true)
   

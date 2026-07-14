@@ -95,3 +95,70 @@ export const studentAuthCheck = async (
     );
   }
 };
+
+export const adminAuthCheck = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // 1. Grab the JWT
+    const token = req.cookies.jwt;
+
+    if (!token) {
+      return next(
+        new UnauthorizedError(
+          "You are not logged in. Please log in to get access.",
+        ),
+      );
+    }
+
+    // 2. Verify Token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      id: string;
+      role: string;
+    };
+
+    // 3. Query DB
+    const currentUser = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, role: true, isActive: true },
+    });
+
+    // 4. Edge Cases
+    if (!currentUser) {
+      return next(
+        new UnauthorizedError(
+          "The user belonging to this token no longer exists.",
+        ),
+      );
+    }
+
+    if (!currentUser.isActive) {
+      return next(new UnauthorizedError("Your account has been deactivated."));
+    }
+
+    // 5. STRICT ROLE CHECK: MUST be an ADMIN
+    if (currentUser.role !== "ADMIN") {
+      return next(
+        new UnauthorizedError(
+          "Access denied. Admin privileges required to perform this action.",
+        ),
+      );
+    }
+
+    // 6. Attach User
+    req.user = {
+      id: currentUser.id,
+      role: currentUser.role,
+    };
+
+    next();
+  } catch (error) {
+    return next(
+      new UnauthorizedError(
+        "Your session has expired or is invalid. Please log in again.",
+      ),
+    );
+  }
+};

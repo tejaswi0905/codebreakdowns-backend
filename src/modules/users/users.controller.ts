@@ -1,9 +1,14 @@
 import type { Request, Response } from "express";
+
 import { catchAsync } from "../../shared/errors/catchAsync.js";
-import { BadRequestError } from "../../shared/errors/AppError.js";
+import {
+  BadRequestError,
+  NotFoundError,
+} from "../../shared/errors/AppError.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
 import { getGithubAuthUrl } from "../../shared/utils/gitOauth.js";
 import { processGithubLogin } from "./users.authService.js";
+import { prisma } from "../../config/prisma.js";
 
 /**
  * @route   GET /api/v1/users/auth/github
@@ -50,3 +55,45 @@ export const githubCallback = catchAsync(
     res.redirect(`${frontendUrl}/dashboard`);
   },
 );
+
+export const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+  // The studentAuthCheck middleware guarantees req.user exists!
+  // We use the "!" operator to tell TypeScript we are 100% sure it's not undefined.
+  const userId = req.user!.id;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    // We only select safe fields. We don't need to send back their internal IDs or payout details here.
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatarUrl: true,
+      role: true,
+    },
+  });
+
+  if (!user) {
+    throw new NotFoundError("User profile not found.");
+  }
+
+  sendSuccess(res, 200, user);
+});
+
+/**
+ * @route   POST /api/v1/users/auth/logout
+ * @desc    Clears the HTTP-only JWT cookie to log the user out
+ * @access  Public
+ */
+export const logout = catchAsync(async (req: Request, res: Response) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  // We clear the cookie using the EXACT same options we used to set it
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+  });
+
+  sendSuccess(res, 200, null, "Logged out successfully");
+});
