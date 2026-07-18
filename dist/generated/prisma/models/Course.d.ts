@@ -13,6 +13,7 @@ export type AggregateCourse = {
 export type CourseMinAggregateOutputType = {
     id: string | null;
     title: string | null;
+    imageUrl: string | null;
     description: string | null;
     isPublished: boolean | null;
     enforceLinearProgress: boolean | null;
@@ -22,6 +23,7 @@ export type CourseMinAggregateOutputType = {
 export type CourseMaxAggregateOutputType = {
     id: string | null;
     title: string | null;
+    imageUrl: string | null;
     description: string | null;
     isPublished: boolean | null;
     enforceLinearProgress: boolean | null;
@@ -31,6 +33,7 @@ export type CourseMaxAggregateOutputType = {
 export type CourseCountAggregateOutputType = {
     id: number;
     title: number;
+    imageUrl: number;
     description: number;
     isPublished: number;
     enforceLinearProgress: number;
@@ -41,6 +44,7 @@ export type CourseCountAggregateOutputType = {
 export type CourseMinAggregateInputType = {
     id?: true;
     title?: true;
+    imageUrl?: true;
     description?: true;
     isPublished?: true;
     enforceLinearProgress?: true;
@@ -50,6 +54,7 @@ export type CourseMinAggregateInputType = {
 export type CourseMaxAggregateInputType = {
     id?: true;
     title?: true;
+    imageUrl?: true;
     description?: true;
     isPublished?: true;
     enforceLinearProgress?: true;
@@ -59,6 +64,7 @@ export type CourseMaxAggregateInputType = {
 export type CourseCountAggregateInputType = {
     id?: true;
     title?: true;
+    imageUrl?: true;
     description?: true;
     isPublished?: true;
     enforceLinearProgress?: true;
@@ -131,6 +137,7 @@ export type CourseGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type CourseGroupByOutputType = {
     id: string;
     title: string;
+    imageUrl: string | null;
     description: string | null;
     isPublished: boolean;
     enforceLinearProgress: boolean;
@@ -149,6 +156,7 @@ export type CourseWhereInput = {
     NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[];
     id?: Prisma.StringFilter<"Course"> | string;
     title?: Prisma.StringFilter<"Course"> | string;
+    imageUrl?: Prisma.StringNullableFilter<"Course"> | string | null;
     description?: Prisma.StringNullableFilter<"Course"> | string | null;
     isPublished?: Prisma.BoolFilter<"Course"> | boolean;
     enforceLinearProgress?: Prisma.BoolFilter<"Course"> | boolean;
@@ -160,6 +168,7 @@ export type CourseWhereInput = {
 export type CourseOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
+    imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
     isPublished?: Prisma.SortOrder;
     enforceLinearProgress?: Prisma.SortOrder;
@@ -174,6 +183,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
     OR?: Prisma.CourseWhereInput[];
     NOT?: Prisma.CourseWhereInput | Prisma.CourseWhereInput[];
     title?: Prisma.StringFilter<"Course"> | string;
+    imageUrl?: Prisma.StringNullableFilter<"Course"> | string | null;
     description?: Prisma.StringNullableFilter<"Course"> | string | null;
     isPublished?: Prisma.BoolFilter<"Course"> | boolean;
     enforceLinearProgress?: Prisma.BoolFilter<"Course"> | boolean;
@@ -185,6 +195,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
 export type CourseOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
+    imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
     isPublished?: Prisma.SortOrder;
     enforceLinearProgress?: Prisma.SortOrder;
@@ -200,6 +211,7 @@ export type CourseScalarWhereWithAggregatesInput = {
     NOT?: Prisma.CourseScalarWhereWithAggregatesInput | Prisma.CourseScalarWhereWithAggregatesInput[];
     id?: Prisma.StringWithAggregatesFilter<"Course"> | string;
     title?: Prisma.StringWithAggregatesFilter<"Course"> | string;
+    imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null;
     description?: Prisma.StringNullableWithAggregatesFilter<"Course"> | string | null;
     isPublished?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean;
     enforceLinearProgress?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean;
@@ -209,6 +221,7 @@ export type CourseScalarWhereWithAggregatesInput = {
 export type CourseCreateInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -220,6 +233,7 @@ export type CourseCreateInput = {
 export type CourseUncheckedCreateInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -231,6 +245,7 @@ export type CourseUncheckedCreateInput = {
 export type CourseUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -242,6 +257,7 @@ export type CourseUpdateInput = {
 export type CourseUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -253,6 +269,7 @@ export type CourseUncheckedUpdateInput = {
 export type CourseCreateManyInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -262,6 +279,7 @@ export type CourseCreateManyInput = {
 export type CourseUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -271,6 +289,7 @@ export type CourseUpdateManyMutationInput = {
 export type CourseUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -280,6 +299,7 @@ export type CourseUncheckedUpdateManyInput = {
 export type CourseCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
+    imageUrl?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     isPublished?: Prisma.SortOrder;
     enforceLinearProgress?: Prisma.SortOrder;
@@ -289,6 +309,7 @@ export type CourseCountOrderByAggregateInput = {
 export type CourseMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
+    imageUrl?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     isPublished?: Prisma.SortOrder;
     enforceLinearProgress?: Prisma.SortOrder;
@@ -298,6 +319,7 @@ export type CourseMaxOrderByAggregateInput = {
 export type CourseMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
     title?: Prisma.SortOrder;
+    imageUrl?: Prisma.SortOrder;
     description?: Prisma.SortOrder;
     isPublished?: Prisma.SortOrder;
     enforceLinearProgress?: Prisma.SortOrder;
@@ -335,6 +357,7 @@ export type CourseUpdateOneRequiredWithoutBundlesNestedInput = {
 export type CourseCreateWithoutChaptersInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -345,6 +368,7 @@ export type CourseCreateWithoutChaptersInput = {
 export type CourseUncheckedCreateWithoutChaptersInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -368,6 +392,7 @@ export type CourseUpdateToOneWithWhereWithoutChaptersInput = {
 export type CourseUpdateWithoutChaptersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -378,6 +403,7 @@ export type CourseUpdateWithoutChaptersInput = {
 export type CourseUncheckedUpdateWithoutChaptersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -388,6 +414,7 @@ export type CourseUncheckedUpdateWithoutChaptersInput = {
 export type CourseCreateWithoutBundlesInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -398,6 +425,7 @@ export type CourseCreateWithoutBundlesInput = {
 export type CourseUncheckedCreateWithoutBundlesInput = {
     id?: string;
     title: string;
+    imageUrl?: string | null;
     description?: string | null;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -421,6 +449,7 @@ export type CourseUpdateToOneWithWhereWithoutBundlesInput = {
 export type CourseUpdateWithoutBundlesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -431,6 +460,7 @@ export type CourseUpdateWithoutBundlesInput = {
 export type CourseUncheckedUpdateWithoutBundlesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     title?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
@@ -473,6 +503,7 @@ export type CourseCountOutputTypeCountBundlesArgs<ExtArgs extends runtime.Types.
 export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
+    imageUrl?: boolean;
     description?: boolean;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -485,6 +516,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
+    imageUrl?: boolean;
     description?: boolean;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -494,6 +526,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     title?: boolean;
+    imageUrl?: boolean;
     description?: boolean;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
@@ -503,13 +536,14 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type CourseSelectScalar = {
     id?: boolean;
     title?: boolean;
+    imageUrl?: boolean;
     description?: boolean;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "isPublished" | "enforceLinearProgress" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>;
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imageUrl" | "description" | "isPublished" | "enforceLinearProgress" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>;
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     chapters?: boolean | Prisma.Course$chaptersArgs<ExtArgs>;
     bundles?: boolean | Prisma.Course$bundlesArgs<ExtArgs>;
@@ -526,6 +560,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
         title: string;
+        imageUrl: string | null;
         description: string | null;
         isPublished: boolean;
         enforceLinearProgress: boolean;
@@ -889,6 +924,7 @@ export interface Prisma__CourseClient<T, Null = never, ExtArgs extends runtime.T
 export interface CourseFieldRefs {
     readonly id: Prisma.FieldRef<"Course", 'String'>;
     readonly title: Prisma.FieldRef<"Course", 'String'>;
+    readonly imageUrl: Prisma.FieldRef<"Course", 'String'>;
     readonly description: Prisma.FieldRef<"Course", 'String'>;
     readonly isPublished: Prisma.FieldRef<"Course", 'Boolean'>;
     readonly enforceLinearProgress: Prisma.FieldRef<"Course", 'Boolean'>;

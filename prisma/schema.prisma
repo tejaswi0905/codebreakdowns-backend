@@ -126,8 +126,10 @@ model Product {
   // The actual item sold on the pricing page
   id          String          @id @default(uuid())
   title       String
+  description String?
   imageUrl    String?
   priceInr    Int
+  compareAtPriceInr Int?
   isActive    Boolean         @default(true)
   
   courses     ProductCourse[]

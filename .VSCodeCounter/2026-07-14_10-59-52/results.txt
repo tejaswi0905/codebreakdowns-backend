@@ -1,0 +1,157 @@
+Date : 2026-07-14 10:59:52
+Directory : c:\Users\surek\OneDrive\Desktop\Coding\CB-backend
+Total : 98 files,  20237 codes, 11666 comments, 308 blanks, all 32211 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript         |         56 |     15,483 |     11,329 |        176 |     26,988 |
+| JSON               |          2 |      3,742 |          0 |          2 |      3,744 |
+| JavaScript         |         34 |        587 |        232 |          0 |        819 |
+| Prisma             |          1 |        217 |         34 |         55 |        306 |
+| MS SQL             |          4 |        184 |         53 |         69 |        306 |
+| JSON with Comments |          1 |         24 |         18 |          6 |         48 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                            |         98 |     20,237 |     11,666 |        308 |     32,211 |
+| . (Files)                                                                                                    |          4 |      3,777 |         20 |         10 |      3,807 |
+| dist                                                                                                         |         68 |     15,250 |     11,404 |          0 |     26,654 |
+| dist (Files)                                                                                                 |          6 |         39 |          6 |          0 |         45 |
+| dist\config                                                                                                  |          6 |         25 |         35 |          0 |         60 |
+| dist\generated                                                                                               |         48 |     15,102 |     11,324 |          0 |     26,426 |
+| dist\generated\prisma                                                                                        |         48 |     15,102 |     11,324 |          0 |     26,426 |
+| dist\generated\prisma (Files)                                                                                |         10 |        689 |        209 |          0 |        898 |
+| dist\generated\prisma\internal                                                                               |          6 |      2,340 |        556 |          0 |      2,896 |
+| dist\generated\prisma\models                                                                                 |         32 |     12,073 |     10,559 |          0 |     22,632 |
+| dist\shared                                                                                                  |          8 |         84 |         39 |          0 |        123 |
+| dist\shared\errors                                                                                           |          4 |         46 |          7 |          0 |         53 |
+| dist\shared\middlewares                                                                                      |          2 |         25 |         13 |          0 |         38 |
+| dist\shared\utils                                                                                            |          2 |         13 |         19 |          0 |         32 |
+| prisma                                                                                                       |          5 |        401 |         87 |        124 |        612 |
+| prisma (Files)                                                                                               |          1 |        217 |         34 |         55 |        306 |
+| prisma\migrations                                                                                            |          4 |        184 |         53 |         69 |        306 |
+| prisma\migrations\20260711112824_init                                                                        |          1 |        179 |         49 |         65 |        293 |
+| prisma\migrations\20260713051139_add                                                                         |          1 |          2 |          1 |          1 |          4 |
+| prisma\migrations\20260713103811_made                                                                        |          1 |          1 |          1 |          1 |          3 |
+| prisma\migrations\20260713184659_added                                                                       |          1 |          2 |          2 |          2 |          6 |
+| src                                                                                                          |         21 |        809 |        155 |        174 |      1,138 |
+| src (Files)                                                                                                  |          3 |         39 |          0 |         12 |         51 |
+| src\config                                                                                                   |          3 |         17 |         29 |         13 |         59 |
+| src\modules                                                                                                  |          9 |        462 |         80 |         87 |        629 |
+| src\modules\courses                                                                                          |          4 |        316 |         53 |         52 |        421 |
+| src\modules\users                                                                                            |          5 |        146 |         27 |         35 |        208 |
+| src\shared                                                                                                   |          6 |        291 |         46 |         62 |        399 |
+| src\shared\errors                                                                                            |          2 |         31 |          3 |          8 |         42 |
+| src\shared\middlewares                                                                                       |          2 |        156 |         25 |         27 |        208 |
+| src\shared\utils                                                                                             |          2 |        104 |         18 |         27 |        149 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                     | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\app.d.ts                                              | TypeScript         |          2 |          1 |          0 |          3 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\app.js                                                | JavaScript         |         19 |          1 |          0 |         20 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\env.d.ts                                       | TypeScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\env.js                                         | JavaScript         |          1 |         29 |          0 |         30 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\prisma.d.ts                                    | TypeScript         |          7 |          1 |          0 |          8 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\prisma.js                                      | JavaScript         |         14 |          1 |          0 |         15 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\resend.d.ts                                    | TypeScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\config\resend.js                                      | JavaScript         |          1 |          2 |          0 |          3 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\browser.d.ts                         | TypeScript         |         20 |         65 |          0 |         85 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\browser.js                           | JavaScript         |          4 |         14 |          0 |         18 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\client.d.ts                          | TypeScript         |         24 |         80 |          0 |        104 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\client.js                            | JavaScript         |         12 |         26 |          0 |         38 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\commonInputTypes.d.ts                | TypeScript         |        540 |          1 |          0 |        541 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\commonInputTypes.js                  | JavaScript         |          1 |         10 |          0 |         11 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\enums.d.ts                           | TypeScript         |         38 |          1 |          0 |         39 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\enums.js                             | JavaScript         |         32 |         10 |          0 |         42 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\class.d.ts                  | TypeScript         |         82 |        216 |          0 |        298 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\class.js                    | JavaScript         |         38 |         12 |          0 |         50 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\prismaNamespace.d.ts        | TypeScript         |      1,652 |        231 |          0 |      1,883 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\prismaNamespace.js          | JavaScript         |        193 |         47 |          0 |        240 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\prismaNamespaceBrowser.d.ts | TypeScript         |        199 |         16 |          0 |        215 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\internal\prismaNamespaceBrowser.js   | JavaScript         |        176 |         34 |          0 |        210 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models.d.ts                          | TypeScript         |         17 |          1 |          0 |         18 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models.js                            | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Account.d.ts                  | TypeScript         |        687 |        644 |          0 |      1,331 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Account.js                    | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Chapter.d.ts                  | TypeScript         |        728 |        683 |          0 |      1,411 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Chapter.js                    | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\ChapterState.d.ts             | TypeScript         |        611 |        634 |          0 |      1,245 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\ChapterState.js               | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Coupon.d.ts                   | TypeScript         |        496 |        608 |          0 |      1,104 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Coupon.js                     | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Course.d.ts                   | TypeScript         |        668 |        667 |          0 |      1,335 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Course.js                     | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewBooking.d.ts         | TypeScript         |        856 |        646 |          0 |      1,502 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewBooking.js           | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewPass.d.ts            | TypeScript         |        757 |        668 |          0 |      1,425 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewPass.js              | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewSlot.d.ts            | TypeScript         |        448 |        652 |          0 |      1,100 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\InterviewSlot.js              | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Lesson.d.ts                   | TypeScript         |        762 |        668 |          0 |      1,430 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Lesson.js                     | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\LessonProgress.d.ts           | TypeScript         |        721 |        644 |          0 |      1,365 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\LessonProgress.js             | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\PayoutRequest.d.ts            | TypeScript         |        644 |        644 |          0 |      1,288 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\PayoutRequest.js              | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Product.d.ts                  | TypeScript         |        588 |        677 |          0 |      1,265 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Product.js                    | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\ProductCourse.d.ts            | TypeScript         |        528 |        634 |          0 |      1,162 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\ProductCourse.js              | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Referral.d.ts                 | TypeScript         |        931 |        644 |          0 |      1,575 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\Referral.js                   | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\User.d.ts                     | TypeScript         |      1,836 |        772 |          0 |      2,608 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\User.js                       | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\UserProduct.d.ts              | TypeScript         |        796 |        658 |          0 |      1,454 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\generated\prisma\models\UserProduct.js                | JavaScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\index.d.ts                                            | TypeScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\index.js                                              | JavaScript         |          2 |          1 |          0 |          3 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\server.d.ts                                           | TypeScript         |          1 |          1 |          0 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\server.js                                             | JavaScript         |         14 |          1 |          0 |         15 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\errors\AppError.d.ts                           | TypeScript         |         14 |          1 |          0 |         15 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\errors\AppError.js                             | JavaScript         |         25 |          4 |          0 |         29 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\errors\catchAsync.d.ts                         | TypeScript         |          2 |          1 |          0 |          3 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\errors\catchAsync.js                           | JavaScript         |          5 |          1 |          0 |          6 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\middlewares\errorHandler.d.ts                  | TypeScript         |          3 |          1 |          0 |          4 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\middlewares\errorHandler.js                    | JavaScript         |         22 |         12 |          0 |         34 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\utils\apiResopnse.d.ts                         | TypeScript         |          2 |          9 |          0 |         11 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\dist\shared\utils\apiResopnse.js                           | JavaScript         |         11 |         10 |          0 |         21 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\package-lock.json                                          | JSON               |      3,702 |          0 |          1 |      3,703 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\package.json                                               | JSON               |         40 |          0 |          1 |         41 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma.config.ts                                           | TypeScript         |         11 |          2 |          2 |         15 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma\migrations\20260711112824_init\migration.sql        | MS SQL             |        179 |         49 |         65 |        293 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma\migrations\20260713051139_add\migration.sql         | MS SQL             |          2 |          1 |          1 |          4 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma\migrations\20260713103811_made\migration.sql        | MS SQL             |          1 |          1 |          1 |          3 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma\migrations\20260713184659_added\migration.sql       | MS SQL             |          2 |          2 |          2 |          6 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\prisma\schema.prisma                                       | Prisma             |        217 |         34 |         55 |        306 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\app.ts                                                 | TypeScript         |         25 |          0 |          8 |         33 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\config\env.ts                                          | TypeScript         |          0 |         28 |          6 |         34 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\config\prisma.ts                                       | TypeScript         |         17 |          0 |          6 |         23 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\config\resend.ts                                       | TypeScript         |          0 |          1 |          1 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\index.ts                                               | TypeScript         |          1 |          0 |          1 |          2 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\courses\courses.controller.ts                  | TypeScript         |         80 |         14 |         21 |        115 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\courses\courses.dbService.ts                   | TypeScript         |        150 |         16 |         15 |        181 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\courses\courses.routes.ts                      | TypeScript         |         23 |         11 |          9 |         43 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\courses\courses.schemas.ts                     | TypeScript         |         63 |         12 |          7 |         82 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\users\users.authService.ts                     | TypeScript         |         19 |          0 |          4 |         23 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\users\users.controller.ts                      | TypeScript         |         58 |         25 |         17 |        100 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\users\users.dbService.ts                       | TypeScript         |         55 |          1 |          5 |         61 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\users\users.routes.ts                          | TypeScript         |         14 |          1 |          8 |         23 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\modules\users\users.schemas.ts                         | TypeScript         |          0 |          0 |          1 |          1 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\server.ts                                              | TypeScript         |         13 |          0 |          3 |         16 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\errors\AppError.ts                              | TypeScript         |         25 |          3 |          6 |         34 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\errors\catchAsync.ts                            | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\middlewares\authMiddleware.ts                   | TypeScript         |        130 |         14 |         21 |        165 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\middlewares\errorHandler.ts                     | TypeScript         |         26 |         11 |          6 |         43 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\utils\apiResopnse.ts                            | TypeScript         |         22 |         10 |          5 |         37 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\src\shared\utils\gitOauth.ts                               | TypeScript         |         82 |          8 |         22 |        112 |
+| c:\Users\surek\OneDrive\Desktop\Coding\CB-backend\tsconfig.json                                              | JSON with Comments |         24 |         18 |          6 |         48 |
+| Total                                                                                                        |                    |     20,237 |     11,666 |        308 |     32,211 |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

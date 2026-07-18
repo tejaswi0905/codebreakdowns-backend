@@ -31,3 +31,11 @@ export class NotFoundError extends AppError {
     super(message, 404);
   }
 }
+
+export class ForbiddenError extends AppError {
+  constructor(
+    message: string = "You do not have permission to perform this action.",
+  ) {
+    super(message, 403);
+  }
+}

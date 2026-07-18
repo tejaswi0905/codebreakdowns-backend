@@ -91,6 +91,7 @@ export const AccountScalarFieldEnum = {
 export const CourseScalarFieldEnum = {
     id: 'id',
     title: 'title',
+    imageUrl: 'imageUrl',
     description: 'description',
     isPublished: 'isPublished',
     enforceLinearProgress: 'enforceLinearProgress',
@@ -107,6 +108,8 @@ export const LessonScalarFieldEnum = {
     id: 'id',
     chapterId: 'chapterId',
     title: 'title',
+    isProblem: 'isProblem',
+    problemUrl: 'problemUrl',
     videoUrlOrId: 'videoUrlOrId',
     durationSeconds: 'durationSeconds',
     explanationEndSeconds: 'explanationEndSeconds',
@@ -115,7 +118,10 @@ export const LessonScalarFieldEnum = {
 export const ProductScalarFieldEnum = {
     id: 'id',
     title: 'title',
+    description: 'description',
+    imageUrl: 'imageUrl',
     priceInr: 'priceInr',
+    compareAtPriceInr: 'compareAtPriceInr',
     isActive: 'isActive'
 };
 export const ProductCourseScalarFieldEnum = {

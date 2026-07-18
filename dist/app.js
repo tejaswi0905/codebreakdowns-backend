@@ -2,8 +2,16 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./shared/middlewares/errorHandler.js";
+import userRouter from "./modules/users/users.routes.js";
+import coursesRouter from "./modules/courses/courses.routes.js";
+import productsRouter from "./modules/products/products.routes.js";
+import paymentsRouter from "./modules/payments/payments.routes.js";
 const app = express();
-app.use(express.json());
+app.use(express.json({
+    verify: (req, res, buf) => {
+        req.rawBody = buf;
+    },
+}));
 app.use(cookieParser());
 app.use(cors({
     origin: process.env.FRONTEND_URL || "http://localhost:3001",
@@ -15,6 +23,10 @@ app.get("/health", (req, res) => {
         message: "CodeBreakdowns Api is healthy",
     });
 });
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/course", coursesRouter);
+app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/payments", paymentsRouter);
 app.use(errorHandler);
 export { app };
 //# sourceMappingURL=app.js.map

@@ -79,6 +79,7 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 export declare const CourseScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
+    readonly imageUrl: "imageUrl";
     readonly description: "description";
     readonly isPublished: "isPublished";
     readonly enforceLinearProgress: "enforceLinearProgress";
@@ -97,6 +98,8 @@ export declare const LessonScalarFieldEnum: {
     readonly id: "id";
     readonly chapterId: "chapterId";
     readonly title: "title";
+    readonly isProblem: "isProblem";
+    readonly problemUrl: "problemUrl";
     readonly videoUrlOrId: "videoUrlOrId";
     readonly durationSeconds: "durationSeconds";
     readonly explanationEndSeconds: "explanationEndSeconds";
@@ -106,7 +109,10 @@ export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof 
 export declare const ProductScalarFieldEnum: {
     readonly id: "id";
     readonly title: "title";
+    readonly description: "description";
+    readonly imageUrl: "imageUrl";
     readonly priceInr: "priceInr";
+    readonly compareAtPriceInr: "compareAtPriceInr";
     readonly isActive: "isActive";
 };
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum];
