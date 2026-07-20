@@ -60,7 +60,7 @@ export const verifyPayment = catchAsync(async (req, res) => {
             .join(", ");
         throw new BadRequestError(`Validation failed: ${errorMessages}`);
     }
-    const { productId, razorpay_order_id, razorpay_payment_id, razorpay_signature, } = parseResult.data.body;
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, } = parseResult.data.body;
     // 1. Cryptographic Verification (The Hacker Defense)
     // We hash the order_id and payment_id together using our secret key
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -72,8 +72,19 @@ export const verifyPayment = catchAsync(async (req, res) => {
     if (!isAuthentic) {
         throw new BadRequestError("Payment verification failed! Invalid signature.");
     }
-    // 2. If authentic, print the receipt in our database!
-    await grantProductAccessDb(userId, productId, razorpay_payment_id);
+    // 2. FETCH THE ORDER FROM RAZORPAY TO GET THE REAL PRODUCT ID
+    // We cannot trust the productId from the client because the signature does not cover it.
+    const order = await razorpay.orders.fetch(razorpay_order_id);
+    const realProductId = order.notes?.productId;
+    if (!realProductId) {
+        throw new BadRequestError("Order notes do not contain a valid product ID.");
+    }
+    // 3. Prevent duplicate entries (handles race condition with the webhook)
+    const alreadyOwns = await checkUserOwnsProductDb(userId, realProductId);
+    if (!alreadyOwns) {
+        // 4. Grant access using the verified realProductId
+        await grantProductAccessDb(userId, realProductId, razorpay_payment_id);
+    }
     sendSuccess(res, 200, null, "Payment successful! You now have access to the courses.");
 });
 /**

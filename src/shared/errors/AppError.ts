@@ -39,3 +39,10 @@ export class ForbiddenError extends AppError {
     super(message, 403);
   }
 }
+
+// Shortcut class for 500 Internal Server Error
+export class InternalServerError extends AppError {
+  constructor(message: string = "Internal Server Error") {
+    super(message, 500);
+  }
+}

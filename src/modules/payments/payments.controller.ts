@@ -84,7 +84,6 @@ export const verifyPayment = catchAsync(async (req: Request, res: Response) => {
   }
 
   const {
-    productId,
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
@@ -107,8 +106,21 @@ export const verifyPayment = catchAsync(async (req: Request, res: Response) => {
     );
   }
 
-  // 2. If authentic, print the receipt in our database!
-  await grantProductAccessDb(userId, productId, razorpay_payment_id);
+  // 2. FETCH THE ORDER FROM RAZORPAY TO GET THE REAL PRODUCT ID
+  // We cannot trust the productId from the client because the signature does not cover it.
+  const order = await razorpay.orders.fetch(razorpay_order_id);
+  const realProductId = order.notes?.productId as string;
+
+  if (!realProductId) {
+    throw new BadRequestError("Order notes do not contain a valid product ID.");
+  }
+
+  // 3. Prevent duplicate entries (handles race condition with the webhook)
+  const alreadyOwns = await checkUserOwnsProductDb(userId, realProductId);
+  if (!alreadyOwns) {
+    // 4. Grant access using the verified realProductId
+    await grantProductAccessDb(userId, realProductId, razorpay_payment_id);
+  }
 
   sendSuccess(
     res,

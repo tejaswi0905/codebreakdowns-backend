@@ -13,11 +13,11 @@ export declare const getPurchasedCoursesDb: (userId: string) => Promise<{
  * Includes chapters, lessons, video URLs, and the user's specific progress.
  */
 export declare const getCoursePlayDataDb: (userId: string, courseId: string) => Promise<({
-    chapters: ({
+    chapters: {
         id: string;
         title: string;
         sortOrder: number;
-        lessons: ({
+        lessons: {
             id: string;
             title: string;
             sortOrder: number;
@@ -30,33 +30,18 @@ export declare const getCoursePlayDataDb: (userId: string, courseId: string) => 
                 userId: string;
                 updatedAt: Date;
                 lessonId: string;
-                highestTimestampSecs: number;
                 isCompleted: boolean;
                 isBookmarked: boolean;
+                highestTimestampSecs: number;
             }[];
-        } & {
-            id: string;
-            title: string;
-            sortOrder: number;
-            chapterId: string;
-            isProblem: boolean;
-            problemUrl: string | null;
-            videoUrlOrId: string;
-            durationSeconds: number;
-            explanationEndSeconds: number | null;
-        })[];
+        }[];
         states: {
             userId: string;
             chapterId: string;
             isCompleted: boolean;
             isUnlocked: boolean;
         }[];
-    } & {
-        id: string;
-        title: string;
-        sortOrder: number;
-        courseId: string;
-    })[];
+    }[];
 } & {
     id: string;
     createdAt: Date;

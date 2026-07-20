@@ -1,6 +1,7 @@
 import { catchAsync } from "../../shared/errors/catchAsync.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
 import { getPurchasedCoursesDb, getCoursePlayDataDb, createCourseDb, createChapterDb, createLessonDb, } from "./courses.dbService.js";
+import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import { createCourseSchema, createChapterSchema, createLessonSchema, } from "./courses.schemas.js";
 import { NotFoundError, BadRequestError, } from "../../shared/errors/AppError.js";
 export const getMyCourses = catchAsync(async (req, res) => {
@@ -17,7 +18,20 @@ export const getCoursePlayData = catchAsync(async (req, res) => {
     if (!playData) {
         throw new NotFoundError("Course not found, or you do not have access to it.");
     }
-    sendSuccess(res, 200, playData, "Course play data fetched successfully");
+    // Secure the video URLs using Bunny Stream Token Authentication
+    // We create a new object rather than mutating the Prisma result directly
+    // to satisfy strict TypeScript typings.
+    const securedPlayData = {
+        ...playData,
+        chapters: playData.chapters.map((chapter) => ({
+            ...chapter,
+            lessons: chapter.lessons.map((lesson) => ({
+                ...lesson,
+                videoUrlOrId: generateBunnyVideoToken(lesson.videoUrlOrId),
+            })),
+        })),
+    };
+    sendSuccess(res, 200, securedPlayData, "Course play data fetched successfully");
 });
 export const createCourse = catchAsync(async (req, res) => {
     const parseResult = createCourseSchema.safeParse({ body: req.body });

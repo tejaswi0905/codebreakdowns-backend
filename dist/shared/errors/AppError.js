@@ -26,4 +26,15 @@ export class NotFoundError extends AppError {
         super(message, 404);
     }
 }
+export class ForbiddenError extends AppError {
+    constructor(message = "You do not have permission to perform this action.") {
+        super(message, 403);
+    }
+}
+// Shortcut class for 500 Internal Server Error
+export class InternalServerError extends AppError {
+    constructor(message = "Internal Server Error") {
+        super(message, 500);
+    }
+}
 //# sourceMappingURL=AppError.js.map

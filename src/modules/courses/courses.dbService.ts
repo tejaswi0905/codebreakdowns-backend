@@ -68,17 +68,18 @@ export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
     include: {
       chapters: {
         orderBy: { sortOrder: "asc" },
-        include: {
-          // Attach the Chapter Unlock State for THIS specific user
+        select: {
+          // Explicitly selecting fields using 'select' instead of 'include'
           id: true,
           title: true,
           sortOrder: true,
+          // Attach the Chapter Unlock State for THIS specific user
           states: {
             where: { userId: userId },
           },
           lessons: {
             orderBy: { sortOrder: "asc" },
-            include: {
+            select: {
               id: true,
               title: true,
               isProblem: true,

@@ -8,6 +8,7 @@ import {
   createChapterDb,
   createLessonDb,
 } from "./courses.dbService.js";
+import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import {
   createCourseSchema,
   createChapterSchema,
@@ -40,7 +41,21 @@ export const getCoursePlayData = catchAsync(
       );
     }
 
-    sendSuccess(res, 200, playData, "Course play data fetched successfully");
+    // Secure the video URLs using Bunny Stream Token Authentication
+    // We create a new object rather than mutating the Prisma result directly
+    // to satisfy strict TypeScript typings.
+    const securedPlayData = {
+      ...playData,
+      chapters: (playData as any).chapters.map((chapter: any) => ({
+        ...chapter,
+        lessons: chapter.lessons.map((lesson: any) => ({
+          ...lesson,
+          videoUrlOrId: generateBunnyVideoToken(lesson.videoUrlOrId),
+        })),
+      })),
+    };
+
+    sendSuccess(res, 200, securedPlayData, "Course play data fetched successfully");
   },
 );
 

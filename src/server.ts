@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 const startServer = () => {
   try {
     app.listen(port, () => {
-      console.log("Server started successfully and running in port 3000");
+      console.log(`Server started successfully and running on port ${port}`);
     });
   } catch (error) {
     console.error("Failed to start error ", error);

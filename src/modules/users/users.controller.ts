@@ -86,7 +86,7 @@ export const getMyProfile = catchAsync(async (req: Request, res: Response) => {
  * @access  Public
  */
 export const logout = catchAsync(async (req: Request, res: Response) => {
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = process.env.NODE_ENV === "prod";
 
   // We clear the cookie using the EXACT same options we used to set it
   res.clearCookie("jwt", {
