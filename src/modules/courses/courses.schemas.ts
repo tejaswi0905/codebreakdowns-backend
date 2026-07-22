@@ -10,6 +10,7 @@ export const createCourseSchema = z.object({
     imageUrl: z.string().url("Must be a valid URL").optional(),
     isPublished: z.boolean().optional().default(false),
     enforceLinearProgress: z.boolean().optional().default(false),
+    isFree: z.boolean().optional().default(false),
   }),
 });
 
@@ -47,6 +48,7 @@ const lessonBaseSchema = z
       .optional()
       .or(z.literal("")),
     explanationEndSeconds: z.number().int().optional(),
+    isPreview: z.boolean().optional().default(false),
   })
   .refine(
     (data) => {

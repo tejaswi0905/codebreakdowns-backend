@@ -84,6 +84,8 @@ model Course {
   createdAt             DateTime        @default(now())
   updatedAt             DateTime        @updatedAt
 
+  isFree                Boolean         @default(false)
+
   chapters              Chapter[]
   bundles               ProductCourse[]
 }
@@ -111,6 +113,8 @@ model Lesson {
   durationSeconds         Int
   explanationEndSeconds   Int?              // Threshold to enable the 'Mark Complete' checkbox
   sortOrder               Int
+
+  isPreview               Boolean         @default(false)
   
   chapter                 Chapter          @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   progress                LessonProgress[]
