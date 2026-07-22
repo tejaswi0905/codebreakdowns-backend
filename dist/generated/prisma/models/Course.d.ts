@@ -19,6 +19,7 @@ export type CourseMinAggregateOutputType = {
     enforceLinearProgress: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    isFree: boolean | null;
 };
 export type CourseMaxAggregateOutputType = {
     id: string | null;
@@ -29,6 +30,7 @@ export type CourseMaxAggregateOutputType = {
     enforceLinearProgress: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
+    isFree: boolean | null;
 };
 export type CourseCountAggregateOutputType = {
     id: number;
@@ -39,6 +41,7 @@ export type CourseCountAggregateOutputType = {
     enforceLinearProgress: number;
     createdAt: number;
     updatedAt: number;
+    isFree: number;
     _all: number;
 };
 export type CourseMinAggregateInputType = {
@@ -50,6 +53,7 @@ export type CourseMinAggregateInputType = {
     enforceLinearProgress?: true;
     createdAt?: true;
     updatedAt?: true;
+    isFree?: true;
 };
 export type CourseMaxAggregateInputType = {
     id?: true;
@@ -60,6 +64,7 @@ export type CourseMaxAggregateInputType = {
     enforceLinearProgress?: true;
     createdAt?: true;
     updatedAt?: true;
+    isFree?: true;
 };
 export type CourseCountAggregateInputType = {
     id?: true;
@@ -70,6 +75,7 @@ export type CourseCountAggregateInputType = {
     enforceLinearProgress?: true;
     createdAt?: true;
     updatedAt?: true;
+    isFree?: true;
     _all?: true;
 };
 export type CourseAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -143,6 +149,7 @@ export type CourseGroupByOutputType = {
     enforceLinearProgress: boolean;
     createdAt: Date;
     updatedAt: Date;
+    isFree: boolean;
     _count: CourseCountAggregateOutputType | null;
     _min: CourseMinAggregateOutputType | null;
     _max: CourseMaxAggregateOutputType | null;
@@ -162,6 +169,7 @@ export type CourseWhereInput = {
     enforceLinearProgress?: Prisma.BoolFilter<"Course"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string;
+    isFree?: Prisma.BoolFilter<"Course"> | boolean;
     chapters?: Prisma.ChapterListRelationFilter;
     bundles?: Prisma.ProductCourseListRelationFilter;
 };
@@ -174,6 +182,7 @@ export type CourseOrderByWithRelationInput = {
     enforceLinearProgress?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+    isFree?: Prisma.SortOrder;
     chapters?: Prisma.ChapterOrderByRelationAggregateInput;
     bundles?: Prisma.ProductCourseOrderByRelationAggregateInput;
 };
@@ -189,6 +198,7 @@ export type CourseWhereUniqueInput = Prisma.AtLeast<{
     enforceLinearProgress?: Prisma.BoolFilter<"Course"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Course"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Course"> | Date | string;
+    isFree?: Prisma.BoolFilter<"Course"> | boolean;
     chapters?: Prisma.ChapterListRelationFilter;
     bundles?: Prisma.ProductCourseListRelationFilter;
 }, "id">;
@@ -201,6 +211,7 @@ export type CourseOrderByWithAggregationInput = {
     enforceLinearProgress?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+    isFree?: Prisma.SortOrder;
     _count?: Prisma.CourseCountOrderByAggregateInput;
     _max?: Prisma.CourseMaxOrderByAggregateInput;
     _min?: Prisma.CourseMinOrderByAggregateInput;
@@ -217,6 +228,7 @@ export type CourseScalarWhereWithAggregatesInput = {
     enforceLinearProgress?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Course"> | Date | string;
+    isFree?: Prisma.BoolWithAggregatesFilter<"Course"> | boolean;
 };
 export type CourseCreateInput = {
     id?: string;
@@ -227,6 +239,7 @@ export type CourseCreateInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput;
     bundles?: Prisma.ProductCourseCreateNestedManyWithoutCourseInput;
 };
@@ -239,6 +252,7 @@ export type CourseUncheckedCreateInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput;
     bundles?: Prisma.ProductCourseUncheckedCreateNestedManyWithoutCourseInput;
 };
@@ -251,6 +265,7 @@ export type CourseUpdateInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput;
     bundles?: Prisma.ProductCourseUpdateManyWithoutCourseNestedInput;
 };
@@ -263,6 +278,7 @@ export type CourseUncheckedUpdateInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput;
     bundles?: Prisma.ProductCourseUncheckedUpdateManyWithoutCourseNestedInput;
 };
@@ -275,6 +291,7 @@ export type CourseCreateManyInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
 };
 export type CourseUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -285,6 +302,7 @@ export type CourseUpdateManyMutationInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type CourseUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -295,6 +313,7 @@ export type CourseUncheckedUpdateManyInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type CourseCountOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -305,6 +324,7 @@ export type CourseCountOrderByAggregateInput = {
     enforceLinearProgress?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+    isFree?: Prisma.SortOrder;
 };
 export type CourseMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -315,6 +335,7 @@ export type CourseMaxOrderByAggregateInput = {
     enforceLinearProgress?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+    isFree?: Prisma.SortOrder;
 };
 export type CourseMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -325,6 +346,7 @@ export type CourseMinOrderByAggregateInput = {
     enforceLinearProgress?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
+    isFree?: Prisma.SortOrder;
 };
 export type CourseScalarRelationFilter = {
     is?: Prisma.CourseWhereInput;
@@ -363,6 +385,7 @@ export type CourseCreateWithoutChaptersInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     bundles?: Prisma.ProductCourseCreateNestedManyWithoutCourseInput;
 };
 export type CourseUncheckedCreateWithoutChaptersInput = {
@@ -374,6 +397,7 @@ export type CourseUncheckedCreateWithoutChaptersInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     bundles?: Prisma.ProductCourseUncheckedCreateNestedManyWithoutCourseInput;
 };
 export type CourseCreateOrConnectWithoutChaptersInput = {
@@ -398,6 +422,7 @@ export type CourseUpdateWithoutChaptersInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     bundles?: Prisma.ProductCourseUpdateManyWithoutCourseNestedInput;
 };
 export type CourseUncheckedUpdateWithoutChaptersInput = {
@@ -409,6 +434,7 @@ export type CourseUncheckedUpdateWithoutChaptersInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     bundles?: Prisma.ProductCourseUncheckedUpdateManyWithoutCourseNestedInput;
 };
 export type CourseCreateWithoutBundlesInput = {
@@ -420,6 +446,7 @@ export type CourseCreateWithoutBundlesInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     chapters?: Prisma.ChapterCreateNestedManyWithoutCourseInput;
 };
 export type CourseUncheckedCreateWithoutBundlesInput = {
@@ -431,6 +458,7 @@ export type CourseUncheckedCreateWithoutBundlesInput = {
     enforceLinearProgress?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    isFree?: boolean;
     chapters?: Prisma.ChapterUncheckedCreateNestedManyWithoutCourseInput;
 };
 export type CourseCreateOrConnectWithoutBundlesInput = {
@@ -455,6 +483,7 @@ export type CourseUpdateWithoutBundlesInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapters?: Prisma.ChapterUpdateManyWithoutCourseNestedInput;
 };
 export type CourseUncheckedUpdateWithoutBundlesInput = {
@@ -466,6 +495,7 @@ export type CourseUncheckedUpdateWithoutBundlesInput = {
     enforceLinearProgress?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    isFree?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapters?: Prisma.ChapterUncheckedUpdateManyWithoutCourseNestedInput;
 };
 /**
@@ -509,6 +539,7 @@ export type CourseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     enforceLinearProgress?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    isFree?: boolean;
     chapters?: boolean | Prisma.Course$chaptersArgs<ExtArgs>;
     bundles?: boolean | Prisma.Course$bundlesArgs<ExtArgs>;
     _count?: boolean | Prisma.CourseCountOutputTypeDefaultArgs<ExtArgs>;
@@ -522,6 +553,7 @@ export type CourseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
     enforceLinearProgress?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    isFree?: boolean;
 }, ExtArgs["result"]["course"]>;
 export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -532,6 +564,7 @@ export type CourseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
     enforceLinearProgress?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    isFree?: boolean;
 }, ExtArgs["result"]["course"]>;
 export type CourseSelectScalar = {
     id?: boolean;
@@ -542,8 +575,9 @@ export type CourseSelectScalar = {
     enforceLinearProgress?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    isFree?: boolean;
 };
-export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imageUrl" | "description" | "isPublished" | "enforceLinearProgress" | "createdAt" | "updatedAt", ExtArgs["result"]["course"]>;
+export type CourseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imageUrl" | "description" | "isPublished" | "enforceLinearProgress" | "createdAt" | "updatedAt" | "isFree", ExtArgs["result"]["course"]>;
 export type CourseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     chapters?: boolean | Prisma.Course$chaptersArgs<ExtArgs>;
     bundles?: boolean | Prisma.Course$bundlesArgs<ExtArgs>;
@@ -566,6 +600,7 @@ export type $CoursePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
         enforceLinearProgress: boolean;
         createdAt: Date;
         updatedAt: Date;
+        isFree: boolean;
     }, ExtArgs["result"]["course"]>;
     composites: {};
 };
@@ -930,6 +965,7 @@ export interface CourseFieldRefs {
     readonly enforceLinearProgress: Prisma.FieldRef<"Course", 'Boolean'>;
     readonly createdAt: Prisma.FieldRef<"Course", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"Course", 'DateTime'>;
+    readonly isFree: Prisma.FieldRef<"Course", 'Boolean'>;
 }
 /**
  * Course findUnique

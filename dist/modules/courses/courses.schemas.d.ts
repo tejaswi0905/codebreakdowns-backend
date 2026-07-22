@@ -6,6 +6,7 @@ export declare const createCourseSchema: z.ZodObject<{
         imageUrl: z.ZodOptional<z.ZodString>;
         isPublished: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
         enforceLinearProgress: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+        isFree: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
     }, z.core.$strip>;
 }, z.core.$strip>;
 export declare const createChapterSchema: z.ZodObject<{
@@ -24,6 +25,7 @@ export declare const createLessonSchema: z.ZodObject<{
         isProblem: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
         problemUrl: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<"">]>;
         explanationEndSeconds: z.ZodOptional<z.ZodNumber>;
+        isPreview: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
     }, z.core.$strip>;
 }, z.core.$strip>;
 export declare const createLessonBulkSchema: z.ZodObject<{
@@ -37,6 +39,7 @@ export declare const createLessonBulkSchema: z.ZodObject<{
             isProblem: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
             problemUrl: z.ZodUnion<[z.ZodOptional<z.ZodString>, z.ZodLiteral<"">]>;
             explanationEndSeconds: z.ZodOptional<z.ZodNumber>;
+            isPreview: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
         }, z.core.$strip>>;
     }, z.core.$strip>;
 }, z.core.$strip>;

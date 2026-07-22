@@ -78,6 +78,29 @@ export const getPurchasedCoursesDb = async (userId: string) => {
 };
 
 /**
+ * Public Catalog: Fetches all published courses for the Landing Page.
+ */
+export const getAllPublishedCoursesDb = async () => {
+  const courses = await prisma.course.findMany({
+    where: {
+      isPublished: true,
+    },
+    select: {
+      id: true,
+      title: true,
+      imageUrl: true,
+      description: true,
+      isFree: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return courses;
+};
+
+/**
  * STEP 2 (Video Player): Fetches the complete payload for the video player.
  * Includes chapters, lessons, video URLs, and the user's specific progress.
  */
@@ -139,7 +162,8 @@ export const getPurchasedCoursesDb = async (userId: string) => {
 //   return coursePlayData;
 // };
 
-export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
+export const getCoursePlayDataDb = async (userId: string | undefined, courseId: string) => {
+  const safeUserId = userId || "UNAUTHENTICATED_USER";
   // 1. Fetch the course WITHOUT the strict bundle lock so users can browse preview lessons!
   const coursePlayData = await prisma.course.findFirst({
     where: {
@@ -154,7 +178,7 @@ export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
           title: true,
           sortOrder: true,
           states: {
-            where: { userId: userId },
+            where: { userId: safeUserId },
           },
           lessons: {
             orderBy: { sortOrder: "asc" },
@@ -169,7 +193,7 @@ export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
               sortOrder: true,
               isPreview: true, // NEW: Explicitly select isPreview flag
               progress: {
-                where: { userId: userId },
+                where: { userId: safeUserId },
               },
             },
           },
@@ -181,19 +205,21 @@ export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
   if (!coursePlayData) return null;
 
   // 2. Check if the user actually owns this course via UserProduct
-  const ownershipCount = await prisma.userProduct.count({
-    where: {
-      userId: userId,
-      OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
-      product: {
-        courses: {
-          some: { courseId: courseId },
+  let isPurchased = false;
+  if (userId) {
+    const ownershipCount = await prisma.userProduct.count({
+      where: {
+        userId: userId,
+        OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+        product: {
+          courses: {
+            some: { courseId: courseId },
+          },
         },
       },
-    },
-  });
-
-  const isPurchased = ownershipCount > 0;
+    });
+    isPurchased = ownershipCount > 0;
+  }
 
   // 3. Return the data along with the ownership flag
   return {
@@ -205,6 +231,23 @@ export const getCoursePlayDataDb = async (userId: string, courseId: string) => {
 // ==========================================
 // ADMIN: CMS CREATION ENGINE
 // ==========================================
+
+export const getAdminCourseByIdDb = async (courseId: string) => {
+  return await prisma.course.findUnique({
+    where: { id: courseId },
+    include: {
+      chapters: {
+        orderBy: { sortOrder: "asc" },
+        include: {
+          lessons: {
+            orderBy: { sortOrder: "asc" },
+          },
+        },
+      },
+    },
+  });
+};
+
 
 // export const createCourseDb = async (data: {
 //   title: string;
@@ -235,66 +278,59 @@ export const createCourseDb = async (data: {
 
 export const createChapterDb = async (
   courseId: string,
-  data: { title: string; sortOrder: number },
+  data: { title: string },
 ) => {
   const course = await prisma.course.findUnique({
     where: { id: courseId },
-    select: { enforceLinearProgress: true },
   });
 
   if (!course) {
     throw new NotFoundError("Course not found.");
   }
 
-  if (course.enforceLinearProgress) {
-    const highestChapter = await prisma.chapter.findFirst({
-      where: { courseId },
-      orderBy: { sortOrder: "desc" },
-      select: { sortOrder: true },
-    });
+  const highestChapter = await prisma.chapter.findFirst({
+    where: { courseId },
+    orderBy: { sortOrder: "desc" },
+    select: { sortOrder: true },
+  });
 
-    if (highestChapter && data.sortOrder <= highestChapter.sortOrder) {
-      throw new BadRequestError(
-        `Strict courses only allow appending chapters to the end.`,
-      );
-    }
-  }
+  const nextSortOrder = highestChapter ? highestChapter.sortOrder + 1 : 1;
 
   return await prisma.chapter.create({
     data: {
       ...data,
+      sortOrder: nextSortOrder,
       courseId,
     },
   });
 };
 
-// export const createLessonDb = async (
-//   chapterId: string,
-//   data: {
-//     title: string;
-//     videoUrlOrId: string;
-//     durationSeconds: number;
-//     sortOrder: number;
-//     isProblem?: boolean;
-//     problemUrl?: string;
-//     explanationEndSeconds?: number;
-//   },
-// ) => {
-//   const chapter = await prisma.chapter.findUnique({
-//     where: { id: chapterId },
-//   });
-
-//   if (!chapter) {
-//     throw new NotFoundError("Chapter not found.");
-//   }
-
-//   return await prisma.lesson.create({
-//     data: {
-//       ...data,
-//       chapterId,
-//     },
-//   });
-// };
+export const reorderChaptersDb = async (
+  courseId: string,
+  chapters: { id: string; sortOrder: number }[]
+) => {
+  // Use a transaction to safely update all sortOrders without hitting unique constraints.
+  // One way to bypass unique constraint during swap is to temporarily negative them, or update them in a deferred way if the DB supports it.
+  // Prisma's $transaction executes sequentially. To avoid unique constraint conflicts on [courseId, sortOrder], 
+  // we first map them to negative sortOrders, then to the final ones.
+  return await prisma.$transaction(async (tx) => {
+    // 1. Shift them to a temporary negative space to free up the unique constraint slots
+    for (const chapter of chapters) {
+      await tx.chapter.update({
+        where: { id: chapter.id },
+        data: { sortOrder: -chapter.sortOrder },
+      });
+    }
+    // 2. Assign the final positive sortOrders
+    for (const chapter of chapters) {
+      await tx.chapter.update({
+        where: { id: chapter.id },
+        data: { sortOrder: chapter.sortOrder },
+      });
+    }
+    return true;
+  });
+};
 
 export const createLessonDb = async (
   chapterId: string,
@@ -302,25 +338,68 @@ export const createLessonDb = async (
     title: string;
     videoUrlOrId: string;
     durationSeconds: number;
-    sortOrder: number;
     isProblem?: boolean;
     problemUrl?: string;
     explanationEndSeconds?: number;
-    isPreview?: boolean; // NEW
   },
 ) => {
   const chapter = await prisma.chapter.findUnique({
     where: { id: chapterId },
+    include: { course: true }
   });
 
   if (!chapter) {
     throw new NotFoundError("Chapter not found.");
   }
 
+  const highestLesson = await prisma.lesson.findFirst({
+    where: { chapterId },
+    orderBy: { sortOrder: "desc" },
+    select: { sortOrder: true },
+  });
+
+  const nextSortOrder = highestLesson ? highestLesson.sortOrder + 1 : 1;
+
+  // Auto-calculate isPreview
+  // Rule: First 2 lessons of the first chapter of a course are previews.
+  let isPreview = false;
+  if (chapter.sortOrder === 1 && nextSortOrder <= 2) {
+    isPreview = true;
+  }
+
   return await prisma.lesson.create({
     data: {
       ...data,
+      sortOrder: nextSortOrder,
+      isPreview,
       chapterId,
     },
   });
 };
+
+export const reorderLessonsDb = async (
+  chapterId: string,
+  lessons: { id: string; sortOrder: number }[]
+) => {
+  return await prisma.$transaction(async (tx) => {
+    // 1. Move to negative space
+    for (const lesson of lessons) {
+      await tx.lesson.update({
+        where: { id: lesson.id },
+        data: { sortOrder: -lesson.sortOrder },
+      });
+    }
+    // 2. Move to final space and recalculate isPreview if it's chapter 1
+    const chapter = await tx.chapter.findUnique({ where: { id: chapterId } });
+    const isFirstChapter = chapter?.sortOrder === 1;
+
+    for (const lesson of lessons) {
+      const isPreview = isFirstChapter && lesson.sortOrder <= 2;
+      await tx.lesson.update({
+        where: { id: lesson.id },
+        data: { sortOrder: lesson.sortOrder, isPreview },
+      });
+    }
+    return true;
+  });
+};

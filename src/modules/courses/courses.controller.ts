@@ -3,16 +3,21 @@ import { catchAsync } from "../../shared/errors/catchAsync.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
 import {
   getPurchasedCoursesDb,
+  getAllPublishedCoursesDb,
   getCoursePlayDataDb,
   createCourseDb,
   createChapterDb,
   createLessonDb,
+  reorderChaptersDb,
+  reorderLessonsDb,
+  getAdminCourseByIdDb,
 } from "./courses.dbService.js";
 import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import {
   createCourseSchema,
   createChapterSchema,
   createLessonSchema,
+  reorderSchema,
 } from "./courses.schemas.js";
 
 import {
@@ -24,6 +29,11 @@ export const getMyCourses = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user!.id;
   const courses = await getPurchasedCoursesDb(userId);
   sendSuccess(res, 200, courses, "Purchased courses fetched successfully");
+});
+
+export const getAllPublishedCourses = catchAsync(async (req: Request, res: Response) => {
+  const courses = await getAllPublishedCoursesDb();
+  sendSuccess(res, 200, courses, "Published courses fetched successfully");
 });
 
 // export const getCoursePlayData = catchAsync(
@@ -61,7 +71,7 @@ export const getMyCourses = catchAsync(async (req: Request, res: Response) => {
 
 export const getCoursePlayData = catchAsync(
   async (req: Request, res: Response) => {
-    const userId = req.user!.id;
+    const userId = req.user?.id;
     const { courseId } = req.params;
 
     const playData = await getCoursePlayDataDb(userId, courseId as string);
@@ -169,3 +179,35 @@ export const createLesson = catchAsync(async (req: Request, res: Response) => {
 
   sendSuccess(res, 201, newLesson, "Lesson created successfully");
 });
+
+export const reorderChapters = catchAsync(async (req: Request, res: Response) => {
+  const { courseId } = req.params;
+  const parseResult = reorderSchema.safeParse({ body: req.body });
+
+  if (!parseResult.success) {
+    throw new BadRequestError(`Validation failed`);
+  }
+
+  await reorderChaptersDb(courseId as string, parseResult.data.body.items);
+  sendSuccess(res, 200, null, "Chapters reordered successfully");
+});
+
+export const reorderLessons = catchAsync(async (req: Request, res: Response) => {
+  const { chapterId } = req.params;
+  const parseResult = reorderSchema.safeParse({ body: req.body });
+
+  if (!parseResult.success) {
+    throw new BadRequestError(`Validation failed`);
+  }
+
+  await reorderLessonsDb(chapterId as string, parseResult.data.body.items);
+  sendSuccess(res, 200, null, "Lessons reordered successfully");
+});
+
+export const getAdminCourseById = catchAsync(async (req: Request, res: Response) => {
+  const { courseId } = req.params;
+  const course = await getAdminCourseByIdDb(courseId as string);
+  if (!course) throw new NotFoundError("Course not found");
+  sendSuccess(res, 200, course, "Admin course fetched successfully");
+});
+

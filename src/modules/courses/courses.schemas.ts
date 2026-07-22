@@ -22,7 +22,6 @@ export const createChapterSchema = z.object({
     title: z
       .string()
       .min(3, "Chapter title must be at least 3 characters long"),
-    sortOrder: z.number().int().min(1, "Sort order must be a positive integer"),
   }),
 });
 
@@ -40,7 +39,6 @@ const lessonBaseSchema = z
       .number()
       .int()
       .min(1, "Duration must be at least 1 second"),
-    sortOrder: z.number().int().min(1, "Sort order must be a positive integer"),
     isProblem: z.boolean().optional().default(false),
     problemUrl: z
       .string()
@@ -67,6 +65,21 @@ const lessonBaseSchema = z
 // 2. The Single Lesson Schema
 export const createLessonSchema = z.object({
   body: lessonBaseSchema,
+});
+
+export const updateLessonSchema = z.object({
+  body: lessonBaseSchema.partial(),
+});
+
+export const reorderSchema = z.object({
+  body: z.object({
+    items: z.array(
+      z.object({
+        id: z.string(),
+        sortOrder: z.number().int().min(1),
+      })
+    ),
+  }),
 });
 
 // 3. The BULK Lesson Schema (Max 20 at a time to prevent timeouts)

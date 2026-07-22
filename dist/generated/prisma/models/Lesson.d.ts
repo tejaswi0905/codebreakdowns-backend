@@ -32,6 +32,7 @@ export type LessonMinAggregateOutputType = {
     durationSeconds: number | null;
     explanationEndSeconds: number | null;
     sortOrder: number | null;
+    isPreview: boolean | null;
 };
 export type LessonMaxAggregateOutputType = {
     id: string | null;
@@ -43,6 +44,7 @@ export type LessonMaxAggregateOutputType = {
     durationSeconds: number | null;
     explanationEndSeconds: number | null;
     sortOrder: number | null;
+    isPreview: boolean | null;
 };
 export type LessonCountAggregateOutputType = {
     id: number;
@@ -54,6 +56,7 @@ export type LessonCountAggregateOutputType = {
     durationSeconds: number;
     explanationEndSeconds: number;
     sortOrder: number;
+    isPreview: number;
     _all: number;
 };
 export type LessonAvgAggregateInputType = {
@@ -76,6 +79,7 @@ export type LessonMinAggregateInputType = {
     durationSeconds?: true;
     explanationEndSeconds?: true;
     sortOrder?: true;
+    isPreview?: true;
 };
 export type LessonMaxAggregateInputType = {
     id?: true;
@@ -87,6 +91,7 @@ export type LessonMaxAggregateInputType = {
     durationSeconds?: true;
     explanationEndSeconds?: true;
     sortOrder?: true;
+    isPreview?: true;
 };
 export type LessonCountAggregateInputType = {
     id?: true;
@@ -98,6 +103,7 @@ export type LessonCountAggregateInputType = {
     durationSeconds?: true;
     explanationEndSeconds?: true;
     sortOrder?: true;
+    isPreview?: true;
     _all?: true;
 };
 export type LessonAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -186,6 +192,7 @@ export type LessonGroupByOutputType = {
     durationSeconds: number;
     explanationEndSeconds: number | null;
     sortOrder: number;
+    isPreview: boolean;
     _count: LessonCountAggregateOutputType | null;
     _avg: LessonAvgAggregateOutputType | null;
     _sum: LessonSumAggregateOutputType | null;
@@ -208,6 +215,7 @@ export type LessonWhereInput = {
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
+    isPreview?: Prisma.BoolFilter<"Lesson"> | boolean;
     chapter?: Prisma.XOR<Prisma.ChapterScalarRelationFilter, Prisma.ChapterWhereInput>;
     progress?: Prisma.LessonProgressListRelationFilter;
 };
@@ -221,6 +229,7 @@ export type LessonOrderByWithRelationInput = {
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrderInput | Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
+    isPreview?: Prisma.SortOrder;
     chapter?: Prisma.ChapterOrderByWithRelationInput;
     progress?: Prisma.LessonProgressOrderByRelationAggregateInput;
 };
@@ -238,6 +247,7 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
+    isPreview?: Prisma.BoolFilter<"Lesson"> | boolean;
     chapter?: Prisma.XOR<Prisma.ChapterScalarRelationFilter, Prisma.ChapterWhereInput>;
     progress?: Prisma.LessonProgressListRelationFilter;
 }, "id" | "chapterId_sortOrder">;
@@ -251,6 +261,7 @@ export type LessonOrderByWithAggregationInput = {
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrderInput | Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
+    isPreview?: Prisma.SortOrder;
     _count?: Prisma.LessonCountOrderByAggregateInput;
     _avg?: Prisma.LessonAvgOrderByAggregateInput;
     _max?: Prisma.LessonMaxOrderByAggregateInput;
@@ -270,6 +281,7 @@ export type LessonScalarWhereWithAggregatesInput = {
     durationSeconds?: Prisma.IntWithAggregatesFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableWithAggregatesFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntWithAggregatesFilter<"Lesson"> | number;
+    isPreview?: Prisma.BoolWithAggregatesFilter<"Lesson"> | boolean;
 };
 export type LessonCreateInput = {
     id?: string;
@@ -280,6 +292,7 @@ export type LessonCreateInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
     chapter: Prisma.ChapterCreateNestedOneWithoutLessonsInput;
     progress?: Prisma.LessonProgressCreateNestedManyWithoutLessonInput;
 };
@@ -293,6 +306,7 @@ export type LessonUncheckedCreateInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
     progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutLessonInput;
 };
 export type LessonUpdateInput = {
@@ -304,6 +318,7 @@ export type LessonUpdateInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapter?: Prisma.ChapterUpdateOneRequiredWithoutLessonsNestedInput;
     progress?: Prisma.LessonProgressUpdateManyWithoutLessonNestedInput;
 };
@@ -317,6 +332,7 @@ export type LessonUncheckedUpdateInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutLessonNestedInput;
 };
 export type LessonCreateManyInput = {
@@ -329,6 +345,7 @@ export type LessonCreateManyInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
 };
 export type LessonUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -339,6 +356,7 @@ export type LessonUpdateManyMutationInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type LessonUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -350,6 +368,7 @@ export type LessonUncheckedUpdateManyInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type LessonListRelationFilter = {
     every?: Prisma.LessonWhereInput;
@@ -373,6 +392,7 @@ export type LessonCountOrderByAggregateInput = {
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
+    isPreview?: Prisma.SortOrder;
 };
 export type LessonAvgOrderByAggregateInput = {
     durationSeconds?: Prisma.SortOrder;
@@ -389,6 +409,7 @@ export type LessonMaxOrderByAggregateInput = {
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
+    isPreview?: Prisma.SortOrder;
 };
 export type LessonMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -400,6 +421,7 @@ export type LessonMinOrderByAggregateInput = {
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
+    isPreview?: Prisma.SortOrder;
 };
 export type LessonSumOrderByAggregateInput = {
     durationSeconds?: Prisma.SortOrder;
@@ -469,6 +491,7 @@ export type LessonCreateWithoutChapterInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
     progress?: Prisma.LessonProgressCreateNestedManyWithoutLessonInput;
 };
 export type LessonUncheckedCreateWithoutChapterInput = {
@@ -480,6 +503,7 @@ export type LessonUncheckedCreateWithoutChapterInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
     progress?: Prisma.LessonProgressUncheckedCreateNestedManyWithoutLessonInput;
 };
 export type LessonCreateOrConnectWithoutChapterInput = {
@@ -516,6 +540,7 @@ export type LessonScalarWhereInput = {
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
+    isPreview?: Prisma.BoolFilter<"Lesson"> | boolean;
 };
 export type LessonCreateWithoutProgressInput = {
     id?: string;
@@ -526,6 +551,7 @@ export type LessonCreateWithoutProgressInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
     chapter: Prisma.ChapterCreateNestedOneWithoutLessonsInput;
 };
 export type LessonUncheckedCreateWithoutProgressInput = {
@@ -538,6 +564,7 @@ export type LessonUncheckedCreateWithoutProgressInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
 };
 export type LessonCreateOrConnectWithoutProgressInput = {
     where: Prisma.LessonWhereUniqueInput;
@@ -561,6 +588,7 @@ export type LessonUpdateWithoutProgressInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     chapter?: Prisma.ChapterUpdateOneRequiredWithoutLessonsNestedInput;
 };
 export type LessonUncheckedUpdateWithoutProgressInput = {
@@ -573,6 +601,7 @@ export type LessonUncheckedUpdateWithoutProgressInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 export type LessonCreateManyChapterInput = {
     id?: string;
@@ -583,6 +612,7 @@ export type LessonCreateManyChapterInput = {
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
+    isPreview?: boolean;
 };
 export type LessonUpdateWithoutChapterInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -593,6 +623,7 @@ export type LessonUpdateWithoutChapterInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     progress?: Prisma.LessonProgressUpdateManyWithoutLessonNestedInput;
 };
 export type LessonUncheckedUpdateWithoutChapterInput = {
@@ -604,6 +635,7 @@ export type LessonUncheckedUpdateWithoutChapterInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     progress?: Prisma.LessonProgressUncheckedUpdateManyWithoutLessonNestedInput;
 };
 export type LessonUncheckedUpdateManyWithoutChapterInput = {
@@ -615,6 +647,7 @@ export type LessonUncheckedUpdateManyWithoutChapterInput = {
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
+    isPreview?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 /**
  * Count Type LessonCountOutputType
@@ -650,6 +683,7 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
     sortOrder?: boolean;
+    isPreview?: boolean;
     chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>;
     progress?: boolean | Prisma.Lesson$progressArgs<ExtArgs>;
     _count?: boolean | Prisma.LessonCountOutputTypeDefaultArgs<ExtArgs>;
@@ -664,6 +698,7 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
     sortOrder?: boolean;
+    isPreview?: boolean;
     chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["lesson"]>;
 export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -676,6 +711,7 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
     sortOrder?: boolean;
+    isPreview?: boolean;
     chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["lesson"]>;
 export type LessonSelectScalar = {
@@ -688,8 +724,9 @@ export type LessonSelectScalar = {
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
     sortOrder?: boolean;
+    isPreview?: boolean;
 };
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "isProblem" | "problemUrl" | "videoUrlOrId" | "durationSeconds" | "explanationEndSeconds" | "sortOrder", ExtArgs["result"]["lesson"]>;
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "isProblem" | "problemUrl" | "videoUrlOrId" | "durationSeconds" | "explanationEndSeconds" | "sortOrder" | "isPreview", ExtArgs["result"]["lesson"]>;
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>;
     progress?: boolean | Prisma.Lesson$progressArgs<ExtArgs>;
@@ -717,6 +754,7 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
         durationSeconds: number;
         explanationEndSeconds: number | null;
         sortOrder: number;
+        isPreview: boolean;
     }, ExtArgs["result"]["lesson"]>;
     composites: {};
 };
@@ -1082,6 +1120,7 @@ export interface LessonFieldRefs {
     readonly durationSeconds: Prisma.FieldRef<"Lesson", 'Int'>;
     readonly explanationEndSeconds: Prisma.FieldRef<"Lesson", 'Int'>;
     readonly sortOrder: Prisma.FieldRef<"Lesson", 'Int'>;
+    readonly isPreview: Prisma.FieldRef<"Lesson", 'Boolean'>;
 }
 /**
  * Lesson findUnique

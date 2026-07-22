@@ -14,17 +14,6 @@ declare global {
   }
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string;
-        role: string;
-      };
-    }
-  }
-}
-
 export const studentAuthCheck = async (
   req: Request,
   res: Response,
@@ -160,5 +149,41 @@ export const adminAuthCheck = async (
         "Your session has expired or is invalid. Please log in again.",
       ),
     );
+  }
+};
+
+export const optionalAuthCheck = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+      return next(); // No token, proceed as unauthenticated
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      id: string;
+      role: string;
+    };
+
+    const currentUser = await prisma.user.findUnique({
+      where: { id: decoded.id },
+      select: { id: true, role: true, isActive: true },
+    });
+
+    if (currentUser && currentUser.isActive) {
+      req.user = {
+        id: currentUser.id,
+        role: currentUser.role,
+      };
+    }
+
+    next();
+  } catch (error) {
+    // If token is invalid/expired, proceed as unauthenticated instead of throwing
+    next();
   }
 };

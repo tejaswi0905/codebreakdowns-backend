@@ -31,7 +31,11 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3001",
+    origin: [
+      process.env.FRONTEND_URL || "http://localhost:3001",
+      process.env.ADMIN_URL || "http://localhost:3002",
+      "http://localhost:5174"
+    ],
     credentials: true,
   }),
 );

@@ -16,6 +16,20 @@ export const getActiveProductsDb = async () => {
   });
 };
 
+export const getAdminProductsDb = async () => {
+  return await prisma.product.findMany({
+    include: {
+      courses: {
+        include: {
+          course: {
+            select: { id: true, title: true, imageUrl: true },
+          },
+        },
+      },
+    },
+  });
+};
+
 export const createProductDb = async (data: any) => {
   return await prisma.product.create({ data });
 };

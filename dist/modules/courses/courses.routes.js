@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { getMyCourses, getCoursePlayData, createChapter, createCourse, createLesson, } from "./courses.controller.js";
-import { studentAuthCheck, adminAuthCheck, } from "../../shared/middlewares/authMiddleware.js";
+import { getMyCourses, getAllPublishedCourses, getCoursePlayData, createChapter, createCourse, createLesson, } from "./courses.controller.js";
+import { studentAuthCheck, adminAuthCheck, optionalAuthCheck, } from "../../shared/middlewares/authMiddleware.js";
 const coursesRouter = Router();
 coursesRouter.get("/my-courses", studentAuthCheck, getMyCourses);
+// GET /api/v1/courses
+// Public: Fetches all published courses for the catalog
+coursesRouter.get("/", getAllPublishedCourses);
 // GET /api/v1/courses/:courseId/play
-// Protected: Fetches the deep-dive video player payload (Requires ownership)
-coursesRouter.get("/:courseId/play", studentAuthCheck, getCoursePlayData);
+// Public/Protected: Fetches course data. Shows locks if unauthenticated/unpurchased.
+coursesRouter.get("/:courseId/play", optionalAuthCheck, getCoursePlayData);
 // ==========================================
 // ADMIN CMS ROUTES (CREATION ENGINE)
 // ==========================================

@@ -3,6 +3,7 @@ import { adminAuthCheck } from "../../shared/middlewares/authMiddleware.js";
 
 import {
   getActiveProducts,
+  getAdminProducts,
   createProduct,
   updateProduct,
   linkCourseToProduct,
@@ -19,6 +20,9 @@ productsRouter.get("/", getActiveProducts);
 // ==========================================
 // ADMIN ROUTES (CMS)
 // ==========================================
+// GET /api/v1/products/admin -> Fetches all products (including inactive)
+productsRouter.get("/admin", adminAuthCheck, getAdminProducts);
+
 // POST /api/v1/products -> Create a new bundle/product
 productsRouter.post("/", adminAuthCheck, createProduct);
 

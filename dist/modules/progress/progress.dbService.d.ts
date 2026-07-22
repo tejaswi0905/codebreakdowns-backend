@@ -41,6 +41,7 @@ export declare const getLessonWithProgressDb: (userId: string, lessonId: string)
     videoUrlOrId: string;
     durationSeconds: number;
     explanationEndSeconds: number | null;
+    isPreview: boolean;
 }) | null>;
 export declare const updateLessonCompletionDb: (userId: string, lessonId: string, isCompleted: boolean) => Promise<{
     userId: string;

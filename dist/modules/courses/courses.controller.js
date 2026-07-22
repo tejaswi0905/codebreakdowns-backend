@@ -1,6 +1,6 @@
 import { catchAsync } from "../../shared/errors/catchAsync.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
-import { getPurchasedCoursesDb, getCoursePlayDataDb, createCourseDb, createChapterDb, createLessonDb, } from "./courses.dbService.js";
+import { getPurchasedCoursesDb, getAllPublishedCoursesDb, getCoursePlayDataDb, createCourseDb, createChapterDb, createLessonDb, } from "./courses.dbService.js";
 import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import { createCourseSchema, createChapterSchema, createLessonSchema, } from "./courses.schemas.js";
 import { NotFoundError, BadRequestError, } from "../../shared/errors/AppError.js";
@@ -9,26 +9,66 @@ export const getMyCourses = catchAsync(async (req, res) => {
     const courses = await getPurchasedCoursesDb(userId);
     sendSuccess(res, 200, courses, "Purchased courses fetched successfully");
 });
+export const getAllPublishedCourses = catchAsync(async (req, res) => {
+    const courses = await getAllPublishedCoursesDb();
+    sendSuccess(res, 200, courses, "Published courses fetched successfully");
+});
+// export const getCoursePlayData = catchAsync(
+//   async (req: Request, res: Response) => {
+//     const userId = req.user!.id;
+//     const { courseId } = req.params;
+//     const playData = await getCoursePlayDataDb(userId, courseId as string);
+//     // If the query returns null, it means either the course doesn't exist,
+//     // OR the user hasn't bought it (the security check failed).
+//     if (!playData) {
+//       throw new NotFoundError(
+//         "Course not found, or you do not have access to it.",
+//       );
+//     }
+//     // Secure the video URLs using Bunny Stream Token Authentication
+//     // We create a new object rather than mutating the Prisma result directly
+//     // to satisfy strict TypeScript typings.
+//     const securedPlayData = {
+//       ...playData,
+//       chapters: (playData as any).chapters.map((chapter: any) => ({
+//         ...chapter,
+//         lessons: chapter.lessons.map((lesson: any) => ({
+//           ...lesson,
+//           videoUrlOrId: generateBunnyVideoToken(lesson.videoUrlOrId),
+//         })),
+//       })),
+//     };
+//     sendSuccess(res, 200, securedPlayData, "Course play data fetched successfully");
+//   },
+// );
 export const getCoursePlayData = catchAsync(async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { courseId } = req.params;
     const playData = await getCoursePlayDataDb(userId, courseId);
-    // If the query returns null, it means either the course doesn't exist,
-    // OR the user hasn't bought it (the security check failed).
     if (!playData) {
-        throw new NotFoundError("Course not found, or you do not have access to it.");
+        throw new NotFoundError("Course not found or is not published yet.");
     }
-    // Secure the video URLs using Bunny Stream Token Authentication
-    // We create a new object rather than mutating the Prisma result directly
-    // to satisfy strict TypeScript typings.
+    // Extract our permissions from the DB response
+    const isCourseFree = playData.isFree;
+    const isPurchased = playData.isPurchased;
+    // Secure the video URLs: Only generate Bunny tokens if they have legal access!
     const securedPlayData = {
         ...playData,
         chapters: playData.chapters.map((chapter) => ({
             ...chapter,
-            lessons: chapter.lessons.map((lesson) => ({
-                ...lesson,
-                videoUrlOrId: generateBunnyVideoToken(lesson.videoUrlOrId),
-            })),
+            lessons: chapter.lessons.map((lesson) => {
+                // THE MASTER GATE: Do they have the right to watch this specific video?
+                const hasAccess = isCourseFree || isPurchased || lesson.isPreview;
+                return {
+                    ...lesson,
+                    // If they have access, generate token. If locked, return null!
+                    videoUrlOrId: hasAccess
+                        ? generateBunnyVideoToken(lesson.videoUrlOrId)
+                        : null,
+                    // Pass isLocked to the frontend so Vercel renders a Lock icon 🔒
+                    isLocked: !hasAccess,
+                };
+            }),
         })),
     };
     sendSuccess(res, 200, securedPlayData, "Course play data fetched successfully");

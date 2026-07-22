@@ -75,4 +75,28 @@ export const adminAuthCheck = async (req, res, next) => {
         return next(new UnauthorizedError("Your session has expired or is invalid. Please log in again."));
     }
 };
+export const optionalAuthCheck = async (req, res, next) => {
+    try {
+        const token = req.cookies.jwt;
+        if (!token) {
+            return next(); // No token, proceed as unauthenticated
+        }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const currentUser = await prisma.user.findUnique({
+            where: { id: decoded.id },
+            select: { id: true, role: true, isActive: true },
+        });
+        if (currentUser && currentUser.isActive) {
+            req.user = {
+                id: currentUser.id,
+                role: currentUser.role,
+            };
+        }
+        next();
+    }
+    catch (error) {
+        // If token is invalid/expired, proceed as unauthenticated instead of throwing
+        next();
+    }
+};
 //# sourceMappingURL=authMiddleware.js.map

@@ -96,7 +96,8 @@ export const CourseScalarFieldEnum = {
     isPublished: 'isPublished',
     enforceLinearProgress: 'enforceLinearProgress',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    isFree: 'isFree'
 };
 export const ChapterScalarFieldEnum = {
     id: 'id',
@@ -113,7 +114,8 @@ export const LessonScalarFieldEnum = {
     videoUrlOrId: 'videoUrlOrId',
     durationSeconds: 'durationSeconds',
     explanationEndSeconds: 'explanationEndSeconds',
-    sortOrder: 'sortOrder'
+    sortOrder: 'sortOrder',
+    isPreview: 'isPreview'
 };
 export const ProductScalarFieldEnum = {
     id: 'id',

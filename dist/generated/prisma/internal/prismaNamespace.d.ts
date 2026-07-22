@@ -1515,6 +1515,7 @@ export declare const CourseScalarFieldEnum: {
     readonly enforceLinearProgress: "enforceLinearProgress";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
+    readonly isFree: "isFree";
 };
 export type CourseScalarFieldEnum = (typeof CourseScalarFieldEnum)[keyof typeof CourseScalarFieldEnum];
 export declare const ChapterScalarFieldEnum: {
@@ -1534,6 +1535,7 @@ export declare const LessonScalarFieldEnum: {
     readonly durationSeconds: "durationSeconds";
     readonly explanationEndSeconds: "explanationEndSeconds";
     readonly sortOrder: "sortOrder";
+    readonly isPreview: "isPreview";
 };
 export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum];
 export declare const ProductScalarFieldEnum: {

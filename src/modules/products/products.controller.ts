@@ -4,6 +4,7 @@ import { sendSuccess } from "../../shared/utils/apiResopnse.js";
 import { BadRequestError } from "../../shared/errors/AppError.js";
 import {
   getActiveProductsDb,
+  getAdminProductsDb,
   createProductDb,
   updateProductDb,
   linkCourseToProductDb,
@@ -23,6 +24,12 @@ export const getActiveProducts = catchAsync(
 );
 
 // --- ADMIN ---
+
+export const getAdminProducts = catchAsync(async (req: Request, res: Response) => {
+  const products = await getAdminProductsDb();
+  sendSuccess(res, 200, products, "Admin products fetched successfully");
+});
+
 export const createProduct = catchAsync(async (req: Request, res: Response) => {
   const parseResult = createProductSchema.safeParse({ body: req.body });
   if (!parseResult.success) {

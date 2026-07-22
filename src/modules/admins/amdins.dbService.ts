@@ -72,8 +72,17 @@ export const handleGoogleAdminDb = async (
   }
 
   // 3. Brand New Admin User!
-  // NOTE: When we wire up the single-use AdminInvite secret code next,
-  // our verification check will plug in right here before creating the row!
+  // Check the whitelist before creating a new Admin!
+  const adminEmailsStr = process.env.ADMIN_EMAILS || "";
+  // Supports emails separated by commas or spaces
+  const adminWhitelist = adminEmailsStr.split(/[,\s]+/).filter(Boolean);
+  
+  if (!adminWhitelist.includes(googleProfile.email)) {
+    throw new ForbiddenError(
+      "Access Denied: Your email is not whitelisted for the Admin Portal.",
+    );
+  }
+
   const newUser = await prisma.user.create({
     data: {
       email: googleProfile.email,

@@ -7,12 +7,24 @@ export declare const getPurchasedCoursesDb: (userId: string) => Promise<{
     title: string;
     imageUrl: string | null;
     description: string | null;
+    isFree: boolean;
+}[]>;
+/**
+ * Public Catalog: Fetches all published courses for the Landing Page.
+ */
+export declare const getAllPublishedCoursesDb: () => Promise<{
+    id: string;
+    title: string;
+    imageUrl: string | null;
+    description: string | null;
+    isFree: boolean;
 }[]>;
 /**
  * STEP 2 (Video Player): Fetches the complete payload for the video player.
  * Includes chapters, lessons, video URLs, and the user's specific progress.
  */
-export declare const getCoursePlayDataDb: (userId: string, courseId: string) => Promise<({
+export declare const getCoursePlayDataDb: (userId: string | undefined, courseId: string) => Promise<{
+    isPurchased: boolean;
     chapters: {
         id: string;
         title: string;
@@ -26,6 +38,7 @@ export declare const getCoursePlayDataDb: (userId: string, courseId: string) => 
             videoUrlOrId: string;
             durationSeconds: number;
             explanationEndSeconds: number | null;
+            isPreview: boolean;
             progress: {
                 userId: string;
                 updatedAt: Date;
@@ -42,7 +55,6 @@ export declare const getCoursePlayDataDb: (userId: string, courseId: string) => 
             isUnlocked: boolean;
         }[];
     }[];
-} & {
     id: string;
     createdAt: Date;
     updatedAt: Date;
@@ -51,13 +63,15 @@ export declare const getCoursePlayDataDb: (userId: string, courseId: string) => 
     description: string | null;
     isPublished: boolean;
     enforceLinearProgress: boolean;
-}) | null>;
+    isFree: boolean;
+} | null>;
 export declare const createCourseDb: (data: {
     title: string;
     description?: string;
     imageUrl?: string;
     isPublished?: boolean;
     enforceLinearProgress?: boolean;
+    isFree?: boolean;
 }) => Promise<{
     id: string;
     createdAt: Date;
@@ -67,6 +81,7 @@ export declare const createCourseDb: (data: {
     description: string | null;
     isPublished: boolean;
     enforceLinearProgress: boolean;
+    isFree: boolean;
 }>;
 export declare const createChapterDb: (courseId: string, data: {
     title: string;
@@ -85,6 +100,7 @@ export declare const createLessonDb: (chapterId: string, data: {
     isProblem?: boolean;
     problemUrl?: string;
     explanationEndSeconds?: number;
+    isPreview?: boolean;
 }) => Promise<{
     id: string;
     title: string;
@@ -95,5 +111,6 @@ export declare const createLessonDb: (chapterId: string, data: {
     videoUrlOrId: string;
     durationSeconds: number;
     explanationEndSeconds: number | null;
+    isPreview: boolean;
 }>;
 //# sourceMappingURL=courses.dbService.d.ts.map

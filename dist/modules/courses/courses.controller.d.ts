@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 export declare const getMyCourses: (req: Request, res: Response, next: import("express").NextFunction) => void;
+export declare const getAllPublishedCourses: (req: Request, res: Response, next: import("express").NextFunction) => void;
 export declare const getCoursePlayData: (req: Request, res: Response, next: import("express").NextFunction) => void;
 export declare const createCourse: (req: Request, res: Response, next: import("express").NextFunction) => void;
 /**
