@@ -24,6 +24,7 @@ import {
 import {
   NotFoundError,
   BadRequestError,
+  InternalServerError,
 } from "../../shared/errors/AppError.js";
 
 export const getMyCourses = catchAsync(async (req: Request, res: Response) => {
