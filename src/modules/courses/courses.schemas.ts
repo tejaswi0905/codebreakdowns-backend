@@ -7,7 +7,7 @@ export const createCourseSchema = z.object({
   body: z.object({
     title: z.string().min(3, "Title must be at least 3 characters long"),
     description: z.string().optional(),
-    imageUrl: z.string().url("Must be a valid URL").optional(),
+    imageUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
     isPublished: z.boolean().optional().default(false),
     enforceLinearProgress: z.boolean().optional().default(false),
     isFree: z.boolean().optional().default(false),
@@ -32,7 +32,7 @@ export const createChapterSchema = z.object({
 // 1. Extract the base lesson logic so we can reuse it
 const lessonBaseObject = z.object({
   title: z.string().min(3, "Lesson title must be at least 3 characters"),
-  imageUrl: z.string().url("Must be a valid URL").optional(),
+  imageUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   videoUrlOrId: z.string().min(1, "Video URL or ID is required"),
   durationSeconds: z
     .number()
