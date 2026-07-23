@@ -9,6 +9,7 @@ import {
   reorderChapters,
   reorderLessons,
   getAdminCourseById,
+  getBunnyVideoDuration
 } from "./courses.controller.js";
 import {
   studentAuthCheck,
@@ -17,6 +18,9 @@ import {
 } from "../../shared/middlewares/authMiddleware.js";
 
 const coursesRouter = Router();
+
+// Used by Admin Dashboard to fetch duration without CORS issues
+coursesRouter.get("/bunny-metadata", adminAuthCheck, getBunnyVideoDuration);
 
 coursesRouter.get("/my-courses", studentAuthCheck, getMyCourses);
 
