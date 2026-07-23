@@ -239,7 +239,13 @@ export const getBunnyVideoDuration = catchAsync(async (req: Request, res: Respon
     });
 
     const durationSeconds = response.data.length || 0;
-    sendSuccess(res, 200, { durationSeconds }, "Fetched video duration");
+    let title = response.data.title || "";
+    // Optionally remove file extensions like .mp4, .mkv from the auto-detected title
+    if (title) {
+      title = title.replace(/\.[^/.]+$/, "");
+    }
+    
+    sendSuccess(res, 200, { durationSeconds, title }, "Fetched video metadata");
   } catch (error: any) {
     console.error("Bunny API Error:", error.response?.data || error.message);
     throw new InternalServerError("Failed to fetch video metadata from Bunny.net");
