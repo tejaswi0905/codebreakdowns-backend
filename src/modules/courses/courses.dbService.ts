@@ -192,6 +192,7 @@ export const getCoursePlayDataDb = async (userId: string | undefined, courseId: 
               explanationEndSeconds: true,
               sortOrder: true,
               isPreview: true, // NEW: Explicitly select isPreview flag
+              description: true, // Fetch JSON metadata
               progress: {
                 where: { userId: safeUserId },
               },
