@@ -1,4 +1,6 @@
 node_modules
+src/scripts/grantAllProducts.ts
+
 # Keep environment variables out of version control
 .env
 
