@@ -219,8 +219,8 @@ export const getBunnyVideoDuration = catchAsync(async (req: Request, res: Respon
     throw new BadRequestError("videoUrl query parameter is required");
   }
 
-  // Extract video ID from URL (e.g., https://iframe.mediadelivery.net/embed/708603/b3f29c66...)
-  const match = videoUrl.match(/embed\/\d+\/([a-zA-Z0-9-]+)/);
+  // Extract video ID from URL (e.g., https://iframe.mediadelivery.net/embed/708603/b3f29c66... or /play/...)
+  const match = videoUrl.match(/(?:embed|play)\/\d+\/([a-zA-Z0-9-]+)/);
   const videoId = match ? match[1] : videoUrl; 
 
   const libraryId = process.env.bunnyNetVideoLibId;
