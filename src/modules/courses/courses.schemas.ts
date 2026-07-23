@@ -30,45 +30,43 @@ export const createChapterSchema = z.object({
 // ==========================================
 
 // 1. Extract the base lesson logic so we can reuse it
-const lessonBaseSchema = z
-  .object({
-    title: z.string().min(3, "Lesson title must be at least 3 characters"),
-    imageUrl: z.string().url("Must be a valid URL").optional(),
-    videoUrlOrId: z.string().min(1, "Video URL or ID is required"),
-    durationSeconds: z
-      .number()
-      .int()
-      .min(1, "Duration must be at least 1 second"),
-    isProblem: z.boolean().optional().default(false),
-    problemUrl: z
-      .string()
-      .url("Must be a valid URL")
-      .optional()
-      .or(z.literal("")),
-    explanationEndSeconds: z.number().int().optional(),
-    isPreview: z.boolean().optional().default(false),
-  })
-  .refine(
-    (data) => {
-      if (data.isProblem) {
-        return !!data.problemUrl && data.explanationEndSeconds !== undefined;
-      }
-      return true;
-    },
-    {
-      message:
-        "If isProblem is true, problemUrl and explanationEndSeconds are required.",
-      path: ["isProblem"],
-    },
-  );
+const lessonBaseObject = z.object({
+  title: z.string().min(3, "Lesson title must be at least 3 characters"),
+  imageUrl: z.string().url("Must be a valid URL").optional(),
+  videoUrlOrId: z.string().min(1, "Video URL or ID is required"),
+  durationSeconds: z
+    .number()
+    .int()
+    .min(1, "Duration must be at least 1 second"),
+  isProblem: z.boolean().optional().default(false),
+  problemUrl: z
+    .string()
+    .url("Must be a valid URL")
+    .optional()
+    .or(z.literal("")),
+  explanationEndSeconds: z.number().int().optional(),
+  isPreview: z.boolean().optional().default(false),
+});
+
+const lessonRefinement = (data: any) => {
+  if (data.isProblem) {
+    return !!data.problemUrl && data.explanationEndSeconds !== undefined;
+  }
+  return true;
+};
+
+const lessonRefinementOptions = {
+  message: "If isProblem is true, problemUrl and explanationEndSeconds are required.",
+  path: ["isProblem"],
+};
 
 // 2. The Single Lesson Schema
 export const createLessonSchema = z.object({
-  body: lessonBaseSchema,
+  body: lessonBaseObject.refine(lessonRefinement, lessonRefinementOptions),
 });
 
 export const updateLessonSchema = z.object({
-  body: lessonBaseSchema.partial(),
+  body: lessonBaseObject.partial().refine(lessonRefinement, lessonRefinementOptions),
 });
 
 export const reorderSchema = z.object({
@@ -86,7 +84,7 @@ export const reorderSchema = z.object({
 export const createLessonBulkSchema = z.object({
   body: z.object({
     lessons: z
-      .array(lessonBaseSchema)
+      .array(lessonBaseObject.refine(lessonRefinement, lessonRefinementOptions))
       .min(1, "You must provide at least one lesson")
       .max(
         20,
