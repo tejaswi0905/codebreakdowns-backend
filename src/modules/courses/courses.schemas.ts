@@ -44,6 +44,7 @@ const lessonBaseObject = z.object({
     .url("Must be a valid URL")
     .optional()
     .or(z.literal("")),
+  description: z.string().optional(),
   explanationEndSeconds: z.number().int().optional(),
   isPreview: z.boolean().optional().default(false),
 });
