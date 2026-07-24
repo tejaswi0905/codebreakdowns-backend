@@ -337,7 +337,8 @@ export const createLessonDb = async (
   chapterId: string,
   data: {
     title: string;
-    videoUrlOrId: string;
+    videoUrlOrId?: string;
+    description?: string;
     durationSeconds: number;
     isProblem?: boolean;
     problemUrl?: string;

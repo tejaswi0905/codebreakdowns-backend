@@ -110,7 +110,7 @@ model Lesson {
   isProblem               Boolean          @default(false)
   problemUrl              String?
   description             String?
-  videoUrlOrId            String
+  videoUrlOrId            String?
   durationSeconds         Int
   explanationEndSeconds   Int?              // Threshold to enable the 'Mark Complete' checkbox
   sortOrder               Int

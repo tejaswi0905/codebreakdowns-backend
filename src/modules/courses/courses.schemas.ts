@@ -33,7 +33,7 @@ export const createChapterSchema = z.object({
 const lessonBaseObject = z.object({
   title: z.string().min(3, "Lesson title must be at least 3 characters"),
   imageUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
-  videoUrlOrId: z.string().min(1, "Video URL or ID is required"),
+  videoUrlOrId: z.string().optional().or(z.literal("")),
   durationSeconds: z
     .number()
     .int()
