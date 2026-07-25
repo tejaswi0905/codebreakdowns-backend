@@ -37,7 +37,7 @@ const lessonBaseObject = z.object({
   durationSeconds: z
     .number()
     .int()
-    .min(1, "Duration must be at least 1 second"),
+    .min(0, "Duration must be at least 0 seconds"),
   isProblem: z.boolean().optional().default(false),
   problemUrl: z
     .string()

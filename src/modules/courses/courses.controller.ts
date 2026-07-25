@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import axios from "axios";
 import { catchAsync } from "../../shared/errors/catchAsync.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
+import {prisma} from "../../config/prisma.js";
 import {
   getPurchasedCoursesDb,
   getAllPublishedCoursesDb,
@@ -190,6 +191,11 @@ export const reorderChapters = catchAsync(async (req: Request, res: Response) =>
     throw new BadRequestError(`Validation failed`);
   }
 
+  const course = await prisma.course.findUnique({ where: { id: courseId as string } });
+  if (course?.enforceLinearProgress) {
+    throw new BadRequestError("Cannot reorder chapters when linear progress is enforced");
+  }
+
   await reorderChaptersDb(courseId as string, parseResult.data.body.items);
   sendSuccess(res, 200, null, "Chapters reordered successfully");
 });
@@ -200,6 +206,14 @@ export const reorderLessons = catchAsync(async (req: Request, res: Response) => 
 
   if (!parseResult.success) {
     throw new BadRequestError(`Validation failed`);
+  }
+
+  const chapter = await prisma.chapter.findUnique({
+    where: { id: chapterId as string },
+    include: { course: true }
+  });
+  if (chapter?.course?.enforceLinearProgress) {
+    throw new BadRequestError("Cannot reorder lessons when linear progress is enforced");
   }
 
   await reorderLessonsDb(chapterId as string, parseResult.data.body.items);
