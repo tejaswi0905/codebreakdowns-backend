@@ -143,6 +143,34 @@ export const getAllPublishedCoursesDb = async () => {
 };
 
 /**
+ * Admin Catalog: Fetches all courses (published & draft) with chapter counts for Admin CMS.
+ */
+export const getAdminCoursesDb = async () => {
+  const courses = await prisma.course.findMany({
+    select: {
+      id: true,
+      title: true,
+      imageUrl: true,
+      description: true,
+      isFree: true,
+      isPublished: true,
+      enforceLinearProgress: true,
+      createdAt: true,
+      chapters: {
+        select: {
+          id: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return courses;
+};
+
+/**
  * STEP 2 (Video Player): Fetches the complete payload for the video player.
  * Includes chapters, lessons, video URLs, and the user's specific progress.
  */
@@ -322,6 +350,21 @@ export const createCourseDb = async (data: {
   isFree?: boolean; // NEW
 }) => {
   return await prisma.course.create({ data });
+};
+
+export const updateCourseDb = async (courseId: string, data: any) => {
+  const course = await prisma.course.findUnique({
+    where: { id: courseId },
+  });
+
+  if (!course) {
+    throw new NotFoundError("Course not found.");
+  }
+
+  return await prisma.course.update({
+    where: { id: courseId },
+    data,
+  });
 };
 
 // (createChapterDb stays 100% untouched!)

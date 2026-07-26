@@ -14,6 +14,17 @@ export const createCourseSchema = z.object({
   }),
 });
 
+export const updateCourseSchema = z.object({
+  body: z.object({
+    title: z.string().min(3, "Title must be at least 3 characters long").optional(),
+    description: z.string().optional(),
+    imageUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+    isPublished: z.boolean().optional(),
+    enforceLinearProgress: z.boolean().optional(),
+    isFree: z.boolean().optional(),
+  }),
+});
+
 // ==========================================
 // CHAPTER SCHEMAS
 // ==========================================

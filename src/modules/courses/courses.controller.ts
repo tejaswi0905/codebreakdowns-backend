@@ -13,6 +13,8 @@ import {
   reorderChaptersDb,
   reorderLessonsDb,
   getAdminCourseByIdDb,
+  getAdminCoursesDb,
+  updateCourseDb,
 } from "./courses.dbService.js";
 import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import {
@@ -20,6 +22,7 @@ import {
   createChapterSchema,
   createLessonSchema,
   reorderSchema,
+  updateCourseSchema,
 } from "./courses.schemas.js";
 
 import {
@@ -37,6 +40,11 @@ export const getMyCourses = catchAsync(async (req: Request, res: Response) => {
 export const getAllPublishedCourses = catchAsync(async (req: Request, res: Response) => {
   const courses = await getAllPublishedCoursesDb();
   sendSuccess(res, 200, courses, "Published courses fetched successfully");
+});
+
+export const getAdminCourses = catchAsync(async (req: Request, res: Response) => {
+  const courses = await getAdminCoursesDb();
+  sendSuccess(res, 200, courses, "Admin courses fetched successfully");
 });
 
 // export const getCoursePlayData = catchAsync(
@@ -131,6 +139,21 @@ export const createCourse = catchAsync(async (req: Request, res: Response) => {
   );
 
   sendSuccess(res, 201, newCourse, "Course created successfully");
+});
+
+export const updateCourse = catchAsync(async (req: Request, res: Response) => {
+  const { courseId } = req.params;
+  const parseResult = updateCourseSchema.safeParse({ body: req.body });
+
+  if (!parseResult.success) {
+    const errorMessages = parseResult.error.issues
+      .map((err: any) => err.message)
+      .join(", ");
+    throw new BadRequestError(`Validation failed: ${errorMessages}`);
+  }
+
+  const updatedCourse = await updateCourseDb(courseId as string, parseResult.data.body);
+  sendSuccess(res, 200, updatedCourse, "Course updated successfully");
 });
 
 /**

@@ -9,7 +9,9 @@ import {
   reorderChapters,
   reorderLessons,
   getAdminCourseById,
-  getBunnyVideoDuration
+  getBunnyVideoDuration,
+  getAdminCourses,
+  updateCourse,
 } from "./courses.controller.js";
 import {
   studentAuthCheck,
@@ -36,9 +38,17 @@ coursesRouter.get("/:courseId/play", optionalAuthCheck, getCoursePlayData);
 // ADMIN CMS ROUTES (CREATION ENGINE)
 // ==========================================
 
+// GET /api/v1/courses/admin/all
+// Protected: Fetches all courses (published and draft) for admin list
+coursesRouter.get("/admin/all", adminAuthCheck, getAdminCourses);
+
 // GET /api/v1/courses/:courseId/admin
 // Protected: Fetches complete course with chapters and lessons for builder
 coursesRouter.get("/:courseId/admin", adminAuthCheck, getAdminCourseById);
+
+// PUT /api/v1/courses/:courseId
+// Protected: Updates course properties (isFree, isPublished, etc.)
+coursesRouter.put("/:courseId", adminAuthCheck, updateCourse);
 
 // POST /api/v1/courses
 // Protected: Only Admins can create new courses
