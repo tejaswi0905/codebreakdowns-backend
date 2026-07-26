@@ -54,9 +54,7 @@ export const googleCallback = catchAsync(
     });
 
     // 4. Redirect the admin back to the Admin React frontend!
-    const adminFrontendUrl =
-      process.env.ADMIN_FRONTEND_URL || "https://codebreakdowns-admin.vercel.app";
-    res.redirect(`${adminFrontendUrl}/dashboard`);
+    const adminFrontendUrl = "https://admin.codebreakdowns.in";
   },
 );
 
