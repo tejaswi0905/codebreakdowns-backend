@@ -54,7 +54,11 @@ export const googleCallback = catchAsync(
     });
 
     // 4. Redirect the admin back to the Admin React frontend!
-    const adminFrontendUrl = "https://admin.codebreakdowns.in";
+    const adminFrontendUrl =
+      process.env.ADMIN_FRONTEND_URL ||
+      process.env.ADMIN_URL ||
+      "https://admin.codebreakdowns.in";
+    res.redirect(`${adminFrontendUrl}/dashboard`);
   },
 );
 
