@@ -14,11 +14,13 @@ import {
   grantProductAccessDb,
 } from "./payments.dbService.js";
 
-// Initialize the Razorpay SDK
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID as string,
-  key_secret: process.env.RAZORPAY_KEY_SECRET as string,
-});
+// Dynamically initialize the Razorpay SDK to ensure current environment variables are always used
+const getRazorpayInstance = () => {
+  return new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID as string,
+    key_secret: process.env.RAZORPAY_KEY_SECRET as string,
+  });
+};
 
 /**
  * @route   POST /api/v1/payments/checkout/:productId
@@ -52,9 +54,9 @@ export const createOrder = catchAsync(async (req: Request, res: Response) => {
     },
   };
 
-  const order = await razorpay.orders.create(options);
+  const order = await getRazorpayInstance().orders.create(options);
 
-  // 4. Send the order ID to the React frontend
+  // 4. Send the order ID and Key ID to the React frontend to prevent key mismatches!
   sendSuccess(
     res,
     200,
@@ -62,6 +64,7 @@ export const createOrder = catchAsync(async (req: Request, res: Response) => {
       orderId: order.id,
       amount: options.amount,
       currency: options.currency,
+      keyId: process.env.RAZORPAY_KEY_ID,
     },
     "Order created successfully",
   );
@@ -108,7 +111,7 @@ export const verifyPayment = catchAsync(async (req: Request, res: Response) => {
 
   // 2. FETCH THE ORDER FROM RAZORPAY TO GET THE REAL PRODUCT ID
   // We cannot trust the productId from the client because the signature does not cover it.
-  const order = await razorpay.orders.fetch(razorpay_order_id);
+  const order = await getRazorpayInstance().orders.fetch(razorpay_order_id);
   const realProductId = order.notes?.productId as string;
 
   if (!realProductId) {
