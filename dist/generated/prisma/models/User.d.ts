@@ -18,6 +18,7 @@ export type UserMinAggregateOutputType = {
     avatarUrl: string | null;
     role: $Enums.Role | null;
     isActive: boolean | null;
+    isSuperUser: boolean | null;
     paymentGatewayCustomerId: string | null;
     referralCode: string | null;
     payoutUpiId: string | null;
@@ -31,6 +32,7 @@ export type UserMaxAggregateOutputType = {
     avatarUrl: string | null;
     role: $Enums.Role | null;
     isActive: boolean | null;
+    isSuperUser: boolean | null;
     paymentGatewayCustomerId: string | null;
     referralCode: string | null;
     payoutUpiId: string | null;
@@ -44,6 +46,7 @@ export type UserCountAggregateOutputType = {
     avatarUrl: number;
     role: number;
     isActive: number;
+    isSuperUser: number;
     paymentGatewayCustomerId: number;
     referralCode: number;
     payoutUpiId: number;
@@ -58,6 +61,7 @@ export type UserMinAggregateInputType = {
     avatarUrl?: true;
     role?: true;
     isActive?: true;
+    isSuperUser?: true;
     paymentGatewayCustomerId?: true;
     referralCode?: true;
     payoutUpiId?: true;
@@ -71,6 +75,7 @@ export type UserMaxAggregateInputType = {
     avatarUrl?: true;
     role?: true;
     isActive?: true;
+    isSuperUser?: true;
     paymentGatewayCustomerId?: true;
     referralCode?: true;
     payoutUpiId?: true;
@@ -84,6 +89,7 @@ export type UserCountAggregateInputType = {
     avatarUrl?: true;
     role?: true;
     isActive?: true;
+    isSuperUser?: true;
     paymentGatewayCustomerId?: true;
     referralCode?: true;
     payoutUpiId?: true;
@@ -160,6 +166,7 @@ export type UserGroupByOutputType = {
     avatarUrl: string | null;
     role: $Enums.Role;
     isActive: boolean;
+    isSuperUser: boolean;
     paymentGatewayCustomerId: string | null;
     referralCode: string | null;
     payoutUpiId: string | null;
@@ -182,6 +189,7 @@ export type UserWhereInput = {
     avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null;
     role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    isSuperUser?: Prisma.BoolFilter<"User"> | boolean;
     paymentGatewayCustomerId?: Prisma.StringNullableFilter<"User"> | string | null;
     referralCode?: Prisma.StringNullableFilter<"User"> | string | null;
     payoutUpiId?: Prisma.StringNullableFilter<"User"> | string | null;
@@ -204,6 +212,7 @@ export type UserOrderByWithRelationInput = {
     avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    isSuperUser?: Prisma.SortOrder;
     paymentGatewayCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder;
     referralCode?: Prisma.SortOrderInput | Prisma.SortOrder;
     payoutUpiId?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -231,6 +240,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null;
     role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role;
     isActive?: Prisma.BoolFilter<"User"> | boolean;
+    isSuperUser?: Prisma.BoolFilter<"User"> | boolean;
     payoutUpiId?: Prisma.StringNullableFilter<"User"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
@@ -251,6 +261,7 @@ export type UserOrderByWithAggregationInput = {
     avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    isSuperUser?: Prisma.SortOrder;
     paymentGatewayCustomerId?: Prisma.SortOrderInput | Prisma.SortOrder;
     referralCode?: Prisma.SortOrderInput | Prisma.SortOrder;
     payoutUpiId?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -270,6 +281,7 @@ export type UserScalarWhereWithAggregatesInput = {
     avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role;
     isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
+    isSuperUser?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
     paymentGatewayCustomerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     referralCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
     payoutUpiId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
@@ -283,6 +295,7 @@ export type UserCreateInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -305,6 +318,7 @@ export type UserUncheckedCreateInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -327,6 +341,7 @@ export type UserUpdateInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -349,6 +364,7 @@ export type UserUncheckedUpdateInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -371,6 +387,7 @@ export type UserCreateManyInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -384,6 +401,7 @@ export type UserUpdateManyMutationInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -397,6 +415,7 @@ export type UserUncheckedUpdateManyInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -410,6 +429,7 @@ export type UserCountOrderByAggregateInput = {
     avatarUrl?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    isSuperUser?: Prisma.SortOrder;
     paymentGatewayCustomerId?: Prisma.SortOrder;
     referralCode?: Prisma.SortOrder;
     payoutUpiId?: Prisma.SortOrder;
@@ -423,6 +443,7 @@ export type UserMaxOrderByAggregateInput = {
     avatarUrl?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    isSuperUser?: Prisma.SortOrder;
     paymentGatewayCustomerId?: Prisma.SortOrder;
     referralCode?: Prisma.SortOrder;
     payoutUpiId?: Prisma.SortOrder;
@@ -436,6 +457,7 @@ export type UserMinOrderByAggregateInput = {
     avatarUrl?: Prisma.SortOrder;
     role?: Prisma.SortOrder;
     isActive?: Prisma.SortOrder;
+    isSuperUser?: Prisma.SortOrder;
     paymentGatewayCustomerId?: Prisma.SortOrder;
     referralCode?: Prisma.SortOrder;
     payoutUpiId?: Prisma.SortOrder;
@@ -576,6 +598,7 @@ export type UserCreateWithoutAccountsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -597,6 +620,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -631,6 +655,7 @@ export type UserUpdateWithoutAccountsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -652,6 +677,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -673,6 +699,7 @@ export type UserCreateWithoutReceiptsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -694,6 +721,7 @@ export type UserUncheckedCreateWithoutReceiptsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -728,6 +756,7 @@ export type UserUpdateWithoutReceiptsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -749,6 +778,7 @@ export type UserUncheckedUpdateWithoutReceiptsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -770,6 +800,7 @@ export type UserCreateWithoutLessonProgressInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -791,6 +822,7 @@ export type UserUncheckedCreateWithoutLessonProgressInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -825,6 +857,7 @@ export type UserUpdateWithoutLessonProgressInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -846,6 +879,7 @@ export type UserUncheckedUpdateWithoutLessonProgressInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -867,6 +901,7 @@ export type UserCreateWithoutChapterStatesInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -888,6 +923,7 @@ export type UserUncheckedCreateWithoutChapterStatesInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -922,6 +958,7 @@ export type UserUpdateWithoutChapterStatesInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -943,6 +980,7 @@ export type UserUncheckedUpdateWithoutChapterStatesInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -964,6 +1002,7 @@ export type UserCreateWithoutInterviewPassesInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -985,6 +1024,7 @@ export type UserUncheckedCreateWithoutInterviewPassesInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1019,6 +1059,7 @@ export type UserUpdateWithoutInterviewPassesInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1040,6 +1081,7 @@ export type UserUncheckedUpdateWithoutInterviewPassesInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1061,6 +1103,7 @@ export type UserCreateWithoutInterviewBookingsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1082,6 +1125,7 @@ export type UserUncheckedCreateWithoutInterviewBookingsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1116,6 +1160,7 @@ export type UserUpdateWithoutInterviewBookingsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1137,6 +1182,7 @@ export type UserUncheckedUpdateWithoutInterviewBookingsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1158,6 +1204,7 @@ export type UserCreateWithoutReferralsMadeInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1179,6 +1226,7 @@ export type UserUncheckedCreateWithoutReferralsMadeInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1204,6 +1252,7 @@ export type UserCreateWithoutReferralsUsedInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1225,6 +1274,7 @@ export type UserUncheckedCreateWithoutReferralsUsedInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1259,6 +1309,7 @@ export type UserUpdateWithoutReferralsMadeInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1280,6 +1331,7 @@ export type UserUncheckedUpdateWithoutReferralsMadeInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1310,6 +1362,7 @@ export type UserUpdateWithoutReferralsUsedInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1331,6 +1384,7 @@ export type UserUncheckedUpdateWithoutReferralsUsedInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1352,6 +1406,7 @@ export type UserCreateWithoutPayoutRequestsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1373,6 +1428,7 @@ export type UserUncheckedCreateWithoutPayoutRequestsInput = {
     avatarUrl?: string | null;
     role?: $Enums.Role;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: string | null;
     referralCode?: string | null;
     payoutUpiId?: string | null;
@@ -1407,6 +1463,7 @@ export type UserUpdateWithoutPayoutRequestsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1428,6 +1485,7 @@ export type UserUncheckedUpdateWithoutPayoutRequestsInput = {
     avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role;
     isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    isSuperUser?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     paymentGatewayCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     referralCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     payoutUpiId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1537,6 +1595,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     avatarUrl?: boolean;
     role?: boolean;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: boolean;
     referralCode?: boolean;
     payoutUpiId?: boolean;
@@ -1560,6 +1619,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     avatarUrl?: boolean;
     role?: boolean;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: boolean;
     referralCode?: boolean;
     payoutUpiId?: boolean;
@@ -1573,6 +1633,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
     avatarUrl?: boolean;
     role?: boolean;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: boolean;
     referralCode?: boolean;
     payoutUpiId?: boolean;
@@ -1586,13 +1647,14 @@ export type UserSelectScalar = {
     avatarUrl?: boolean;
     role?: boolean;
     isActive?: boolean;
+    isSuperUser?: boolean;
     paymentGatewayCustomerId?: boolean;
     referralCode?: boolean;
     payoutUpiId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "role" | "isActive" | "paymentGatewayCustomerId" | "referralCode" | "payoutUpiId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "avatarUrl" | "role" | "isActive" | "isSuperUser" | "paymentGatewayCustomerId" | "referralCode" | "payoutUpiId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>;
     lessonProgress?: boolean | Prisma.User$lessonProgressArgs<ExtArgs>;
@@ -1627,6 +1689,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         avatarUrl: string | null;
         role: $Enums.Role;
         isActive: boolean;
+        isSuperUser: boolean;
         paymentGatewayCustomerId: string | null;
         referralCode: string | null;
         payoutUpiId: string | null;
@@ -2001,6 +2064,7 @@ export interface UserFieldRefs {
     readonly avatarUrl: Prisma.FieldRef<"User", 'String'>;
     readonly role: Prisma.FieldRef<"User", 'Role'>;
     readonly isActive: Prisma.FieldRef<"User", 'Boolean'>;
+    readonly isSuperUser: Prisma.FieldRef<"User", 'Boolean'>;
     readonly paymentGatewayCustomerId: Prisma.FieldRef<"User", 'String'>;
     readonly referralCode: Prisma.FieldRef<"User", 'String'>;
     readonly payoutUpiId: Prisma.FieldRef<"User", 'String'>;

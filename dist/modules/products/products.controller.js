@@ -1,13 +1,17 @@
 import { catchAsync } from "../../shared/errors/catchAsync.js";
 import { sendSuccess } from "../../shared/utils/apiResopnse.js";
 import { BadRequestError } from "../../shared/errors/AppError.js";
-import { getActiveProductsDb, createProductDb, updateProductDb, linkCourseToProductDb, } from "./products.dbService.js";
+import { getActiveProductsDb, getAdminProductsDb, createProductDb, updateProductDb, linkCourseToProductDb, } from "./products.dbService.js";
 import { createProductSchema, updateProductSchema, linkCourseSchema, } from "./products.schemas.js";
 export const getActiveProducts = catchAsync(async (req, res) => {
     const products = await getActiveProductsDb();
     sendSuccess(res, 200, products, "Active products fetched successfully");
 });
 // --- ADMIN ---
+export const getAdminProducts = catchAsync(async (req, res) => {
+    const products = await getAdminProductsDb();
+    sendSuccess(res, 200, products, "Admin products fetched successfully");
+});
 export const createProduct = catchAsync(async (req, res) => {
     const parseResult = createProductSchema.safeParse({ body: req.body });
     if (!parseResult.success) {

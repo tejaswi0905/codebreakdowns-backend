@@ -16,7 +16,13 @@ app.use(express.json({
 }));
 app.use(cookieParser());
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3001",
+    origin: [
+        process.env.FRONTEND_URL || "http://localhost:3001",
+        process.env.ADMIN_URL || "http://localhost:3002",
+        "http://localhost:5174",
+        "https://codebreakdowns-frontend.vercel.app",
+        "https://codebreakdowns-admin.vercel.app"
+    ],
     credentials: true,
 }));
 app.get("/health", (req, res) => {
@@ -26,7 +32,7 @@ app.get("/health", (req, res) => {
     });
 });
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/course", coursesRouter);
+app.use("/api/v1/courses", coursesRouter);
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/payments", paymentsRouter);
 app.use("/api/v1/progress", progressRouter);

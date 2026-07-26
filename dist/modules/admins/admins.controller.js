@@ -37,7 +37,7 @@ export const googleCallback = catchAsync(async (req, res) => {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 Days in milliseconds
     });
     // 4. Redirect the admin back to the Admin React frontend!
-    const adminFrontendUrl = process.env.ADMIN_FRONTEND_URL || "http://localhost:3002";
+    const adminFrontendUrl = process.env.ADMIN_FRONTEND_URL || "https://codebreakdowns-admin.vercel.app";
     res.redirect(`${adminFrontendUrl}/dashboard`);
 });
 export const getMyProfile = catchAsync(async (req, res) => {

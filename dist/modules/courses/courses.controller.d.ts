@@ -15,4 +15,8 @@ export declare const createChapter: (req: Request, res: Response, next: import("
  * @access  Strictly Admin
  */
 export declare const createLesson: (req: Request, res: Response, next: import("express").NextFunction) => void;
+export declare const reorderChapters: (req: Request, res: Response, next: import("express").NextFunction) => void;
+export declare const reorderLessons: (req: Request, res: Response, next: import("express").NextFunction) => void;
+export declare const getAdminCourseById: (req: Request, res: Response, next: import("express").NextFunction) => void;
+export declare const getBunnyVideoDuration: (req: Request, res: Response, next: import("express").NextFunction) => void;
 //# sourceMappingURL=courses.controller.d.ts.map

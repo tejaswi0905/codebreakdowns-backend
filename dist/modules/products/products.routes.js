@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { adminAuthCheck } from "../../shared/middlewares/authMiddleware.js";
-import { getActiveProducts, createProduct, updateProduct, linkCourseToProduct, } from "./products.controller.js";
+import { getActiveProducts, getAdminProducts, createProduct, updateProduct, linkCourseToProduct, } from "./products.controller.js";
 const productsRouter = Router();
 // ==========================================
 // PUBLIC ROUTES (Storefront)
@@ -10,6 +10,8 @@ productsRouter.get("/", getActiveProducts);
 // ==========================================
 // ADMIN ROUTES (CMS)
 // ==========================================
+// GET /api/v1/products/admin -> Fetches all products (including inactive)
+productsRouter.get("/admin", adminAuthCheck, getAdminProducts);
 // POST /api/v1/products -> Create a new bundle/product
 productsRouter.post("/", adminAuthCheck, createProduct);
 // PATCH /api/v1/products/:productId -> Update price, description, or toggle isActive

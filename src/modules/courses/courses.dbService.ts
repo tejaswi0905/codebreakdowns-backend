@@ -76,13 +76,47 @@ export const getPurchasedCoursesDb = async (userId: string) => {
       imageUrl: true,
       description: true,
       isFree: true, // Useful for UI badges
+      chapters: {
+        select: {
+          lessons: {
+            select: {
+              id: true,
+              progress: {
+                where: { userId: userId, isCompleted: true },
+                select: { isCompleted: true },
+              },
+            },
+          },
+        },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   });
 
-  return courses;
+  return courses.map((course) => {
+    let totalLessons = 0;
+    let completedLessons = 0;
+    course.chapters.forEach((ch) => {
+      ch.lessons.forEach((l) => {
+        totalLessons++;
+        if (l.progress?.some((p) => p.isCompleted)) {
+          completedLessons++;
+        }
+      });
+    });
+    const { chapters, ...rest } = course;
+    return {
+      ...rest,
+      totalLessons,
+      completedLessons,
+      progressPercentage:
+        totalLessons > 0
+          ? Math.round((completedLessons / totalLessons) * 100)
+          : 0,
+    };
+  });
 };
 
 /**

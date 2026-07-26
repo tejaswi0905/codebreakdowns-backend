@@ -3,6 +3,9 @@
  * We traverse the bridge: Course -> ProductCourse -> Product -> UserProduct -> User
  */
 export declare const getPurchasedCoursesDb: (userId: string) => Promise<{
+    totalLessons: number;
+    completedLessons: number;
+    progressPercentage: number;
     id: string;
     title: string;
     imageUrl: string | null;
@@ -32,10 +35,11 @@ export declare const getCoursePlayDataDb: (userId: string | undefined, courseId:
         lessons: {
             id: string;
             title: string;
+            description: string | null;
             sortOrder: number;
             isProblem: boolean;
             problemUrl: string | null;
-            videoUrlOrId: string;
+            videoUrlOrId: string | null;
             durationSeconds: number;
             explanationEndSeconds: number | null;
             isPreview: boolean;
@@ -43,9 +47,9 @@ export declare const getCoursePlayDataDb: (userId: string | undefined, courseId:
                 userId: string;
                 updatedAt: Date;
                 lessonId: string;
+                highestTimestampSecs: number;
                 isCompleted: boolean;
                 isBookmarked: boolean;
-                highestTimestampSecs: number;
             }[];
         }[];
         states: {
@@ -65,6 +69,38 @@ export declare const getCoursePlayDataDb: (userId: string | undefined, courseId:
     enforceLinearProgress: boolean;
     isFree: boolean;
 } | null>;
+export declare const getAdminCourseByIdDb: (courseId: string) => Promise<({
+    chapters: ({
+        lessons: {
+            id: string;
+            title: string;
+            description: string | null;
+            sortOrder: number;
+            chapterId: string;
+            isProblem: boolean;
+            problemUrl: string | null;
+            videoUrlOrId: string | null;
+            durationSeconds: number;
+            explanationEndSeconds: number | null;
+            isPreview: boolean;
+        }[];
+    } & {
+        id: string;
+        title: string;
+        courseId: string;
+        sortOrder: number;
+    })[];
+} & {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    title: string;
+    imageUrl: string | null;
+    description: string | null;
+    isPublished: boolean;
+    enforceLinearProgress: boolean;
+    isFree: boolean;
+}) | null>;
 export declare const createCourseDb: (data: {
     title: string;
     description?: string;
@@ -85,32 +121,39 @@ export declare const createCourseDb: (data: {
 }>;
 export declare const createChapterDb: (courseId: string, data: {
     title: string;
-    sortOrder: number;
 }) => Promise<{
     id: string;
     title: string;
-    sortOrder: number;
     courseId: string;
+    sortOrder: number;
 }>;
+export declare const reorderChaptersDb: (courseId: string, chapters: {
+    id: string;
+    sortOrder: number;
+}[]) => Promise<boolean>;
 export declare const createLessonDb: (chapterId: string, data: {
     title: string;
-    videoUrlOrId: string;
+    videoUrlOrId?: string;
+    description?: string;
     durationSeconds: number;
-    sortOrder: number;
     isProblem?: boolean;
     problemUrl?: string;
     explanationEndSeconds?: number;
-    isPreview?: boolean;
 }) => Promise<{
     id: string;
     title: string;
+    description: string | null;
     sortOrder: number;
     chapterId: string;
     isProblem: boolean;
     problemUrl: string | null;
-    videoUrlOrId: string;
+    videoUrlOrId: string | null;
     durationSeconds: number;
     explanationEndSeconds: number | null;
     isPreview: boolean;
 }>;
+export declare const reorderLessonsDb: (chapterId: string, lessons: {
+    id: string;
+    sortOrder: number;
+}[]) => Promise<boolean>;
 //# sourceMappingURL=courses.dbService.d.ts.map

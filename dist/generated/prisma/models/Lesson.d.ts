@@ -28,6 +28,7 @@ export type LessonMinAggregateOutputType = {
     title: string | null;
     isProblem: boolean | null;
     problemUrl: string | null;
+    description: string | null;
     videoUrlOrId: string | null;
     durationSeconds: number | null;
     explanationEndSeconds: number | null;
@@ -40,6 +41,7 @@ export type LessonMaxAggregateOutputType = {
     title: string | null;
     isProblem: boolean | null;
     problemUrl: string | null;
+    description: string | null;
     videoUrlOrId: string | null;
     durationSeconds: number | null;
     explanationEndSeconds: number | null;
@@ -52,6 +54,7 @@ export type LessonCountAggregateOutputType = {
     title: number;
     isProblem: number;
     problemUrl: number;
+    description: number;
     videoUrlOrId: number;
     durationSeconds: number;
     explanationEndSeconds: number;
@@ -75,6 +78,7 @@ export type LessonMinAggregateInputType = {
     title?: true;
     isProblem?: true;
     problemUrl?: true;
+    description?: true;
     videoUrlOrId?: true;
     durationSeconds?: true;
     explanationEndSeconds?: true;
@@ -87,6 +91,7 @@ export type LessonMaxAggregateInputType = {
     title?: true;
     isProblem?: true;
     problemUrl?: true;
+    description?: true;
     videoUrlOrId?: true;
     durationSeconds?: true;
     explanationEndSeconds?: true;
@@ -99,6 +104,7 @@ export type LessonCountAggregateInputType = {
     title?: true;
     isProblem?: true;
     problemUrl?: true;
+    description?: true;
     videoUrlOrId?: true;
     durationSeconds?: true;
     explanationEndSeconds?: true;
@@ -188,7 +194,8 @@ export type LessonGroupByOutputType = {
     title: string;
     isProblem: boolean;
     problemUrl: string | null;
-    videoUrlOrId: string;
+    description: string | null;
+    videoUrlOrId: string | null;
     durationSeconds: number;
     explanationEndSeconds: number | null;
     sortOrder: number;
@@ -211,7 +218,8 @@ export type LessonWhereInput = {
     title?: Prisma.StringFilter<"Lesson"> | string;
     isProblem?: Prisma.BoolFilter<"Lesson"> | boolean;
     problemUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null;
-    videoUrlOrId?: Prisma.StringFilter<"Lesson"> | string;
+    description?: Prisma.StringNullableFilter<"Lesson"> | string | null;
+    videoUrlOrId?: Prisma.StringNullableFilter<"Lesson"> | string | null;
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
@@ -225,7 +233,8 @@ export type LessonOrderByWithRelationInput = {
     title?: Prisma.SortOrder;
     isProblem?: Prisma.SortOrder;
     problemUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
-    videoUrlOrId?: Prisma.SortOrder;
+    description?: Prisma.SortOrderInput | Prisma.SortOrder;
+    videoUrlOrId?: Prisma.SortOrderInput | Prisma.SortOrder;
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrderInput | Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
@@ -243,7 +252,8 @@ export type LessonWhereUniqueInput = Prisma.AtLeast<{
     title?: Prisma.StringFilter<"Lesson"> | string;
     isProblem?: Prisma.BoolFilter<"Lesson"> | boolean;
     problemUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null;
-    videoUrlOrId?: Prisma.StringFilter<"Lesson"> | string;
+    description?: Prisma.StringNullableFilter<"Lesson"> | string | null;
+    videoUrlOrId?: Prisma.StringNullableFilter<"Lesson"> | string | null;
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
@@ -257,7 +267,8 @@ export type LessonOrderByWithAggregationInput = {
     title?: Prisma.SortOrder;
     isProblem?: Prisma.SortOrder;
     problemUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
-    videoUrlOrId?: Prisma.SortOrder;
+    description?: Prisma.SortOrderInput | Prisma.SortOrder;
+    videoUrlOrId?: Prisma.SortOrderInput | Prisma.SortOrder;
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrderInput | Prisma.SortOrder;
     sortOrder?: Prisma.SortOrder;
@@ -277,7 +288,8 @@ export type LessonScalarWhereWithAggregatesInput = {
     title?: Prisma.StringWithAggregatesFilter<"Lesson"> | string;
     isProblem?: Prisma.BoolWithAggregatesFilter<"Lesson"> | boolean;
     problemUrl?: Prisma.StringNullableWithAggregatesFilter<"Lesson"> | string | null;
-    videoUrlOrId?: Prisma.StringWithAggregatesFilter<"Lesson"> | string;
+    description?: Prisma.StringNullableWithAggregatesFilter<"Lesson"> | string | null;
+    videoUrlOrId?: Prisma.StringNullableWithAggregatesFilter<"Lesson"> | string | null;
     durationSeconds?: Prisma.IntWithAggregatesFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableWithAggregatesFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntWithAggregatesFilter<"Lesson"> | number;
@@ -288,7 +300,8 @@ export type LessonCreateInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -302,7 +315,8 @@ export type LessonUncheckedCreateInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -314,7 +328,8 @@ export type LessonUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -328,7 +343,8 @@ export type LessonUncheckedUpdateInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -341,7 +357,8 @@ export type LessonCreateManyInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -352,7 +369,8 @@ export type LessonUpdateManyMutationInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -364,7 +382,8 @@ export type LessonUncheckedUpdateManyInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -388,6 +407,7 @@ export type LessonCountOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     isProblem?: Prisma.SortOrder;
     problemUrl?: Prisma.SortOrder;
+    description?: Prisma.SortOrder;
     videoUrlOrId?: Prisma.SortOrder;
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
@@ -405,6 +425,7 @@ export type LessonMaxOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     isProblem?: Prisma.SortOrder;
     problemUrl?: Prisma.SortOrder;
+    description?: Prisma.SortOrder;
     videoUrlOrId?: Prisma.SortOrder;
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
@@ -417,6 +438,7 @@ export type LessonMinOrderByAggregateInput = {
     title?: Prisma.SortOrder;
     isProblem?: Prisma.SortOrder;
     problemUrl?: Prisma.SortOrder;
+    description?: Prisma.SortOrder;
     videoUrlOrId?: Prisma.SortOrder;
     durationSeconds?: Prisma.SortOrder;
     explanationEndSeconds?: Prisma.SortOrder;
@@ -487,7 +509,8 @@ export type LessonCreateWithoutChapterInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -499,7 +522,8 @@ export type LessonUncheckedCreateWithoutChapterInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -536,7 +560,8 @@ export type LessonScalarWhereInput = {
     title?: Prisma.StringFilter<"Lesson"> | string;
     isProblem?: Prisma.BoolFilter<"Lesson"> | boolean;
     problemUrl?: Prisma.StringNullableFilter<"Lesson"> | string | null;
-    videoUrlOrId?: Prisma.StringFilter<"Lesson"> | string;
+    description?: Prisma.StringNullableFilter<"Lesson"> | string | null;
+    videoUrlOrId?: Prisma.StringNullableFilter<"Lesson"> | string | null;
     durationSeconds?: Prisma.IntFilter<"Lesson"> | number;
     explanationEndSeconds?: Prisma.IntNullableFilter<"Lesson"> | number | null;
     sortOrder?: Prisma.IntFilter<"Lesson"> | number;
@@ -547,7 +572,8 @@ export type LessonCreateWithoutProgressInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -560,7 +586,8 @@ export type LessonUncheckedCreateWithoutProgressInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -584,7 +611,8 @@ export type LessonUpdateWithoutProgressInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -597,7 +625,8 @@ export type LessonUncheckedUpdateWithoutProgressInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -608,7 +637,8 @@ export type LessonCreateManyChapterInput = {
     title: string;
     isProblem?: boolean;
     problemUrl?: string | null;
-    videoUrlOrId: string;
+    description?: string | null;
+    videoUrlOrId?: string | null;
     durationSeconds: number;
     explanationEndSeconds?: number | null;
     sortOrder: number;
@@ -619,7 +649,8 @@ export type LessonUpdateWithoutChapterInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -631,7 +662,8 @@ export type LessonUncheckedUpdateWithoutChapterInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -643,7 +675,8 @@ export type LessonUncheckedUpdateManyWithoutChapterInput = {
     title?: Prisma.StringFieldUpdateOperationsInput | string;
     isProblem?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     problemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    videoUrlOrId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    videoUrlOrId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     durationSeconds?: Prisma.IntFieldUpdateOperationsInput | number;
     explanationEndSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     sortOrder?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -679,6 +712,7 @@ export type LessonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title?: boolean;
     isProblem?: boolean;
     problemUrl?: boolean;
+    description?: boolean;
     videoUrlOrId?: boolean;
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
@@ -694,6 +728,7 @@ export type LessonSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
     title?: boolean;
     isProblem?: boolean;
     problemUrl?: boolean;
+    description?: boolean;
     videoUrlOrId?: boolean;
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
@@ -707,6 +742,7 @@ export type LessonSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
     title?: boolean;
     isProblem?: boolean;
     problemUrl?: boolean;
+    description?: boolean;
     videoUrlOrId?: boolean;
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
@@ -720,13 +756,14 @@ export type LessonSelectScalar = {
     title?: boolean;
     isProblem?: boolean;
     problemUrl?: boolean;
+    description?: boolean;
     videoUrlOrId?: boolean;
     durationSeconds?: boolean;
     explanationEndSeconds?: boolean;
     sortOrder?: boolean;
     isPreview?: boolean;
 };
-export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "isProblem" | "problemUrl" | "videoUrlOrId" | "durationSeconds" | "explanationEndSeconds" | "sortOrder" | "isPreview", ExtArgs["result"]["lesson"]>;
+export type LessonOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "chapterId" | "title" | "isProblem" | "problemUrl" | "description" | "videoUrlOrId" | "durationSeconds" | "explanationEndSeconds" | "sortOrder" | "isPreview", ExtArgs["result"]["lesson"]>;
 export type LessonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     chapter?: boolean | Prisma.ChapterDefaultArgs<ExtArgs>;
     progress?: boolean | Prisma.Lesson$progressArgs<ExtArgs>;
@@ -750,7 +787,8 @@ export type $LessonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
         title: string;
         isProblem: boolean;
         problemUrl: string | null;
-        videoUrlOrId: string;
+        description: string | null;
+        videoUrlOrId: string | null;
         durationSeconds: number;
         explanationEndSeconds: number | null;
         sortOrder: number;
@@ -1116,6 +1154,7 @@ export interface LessonFieldRefs {
     readonly title: Prisma.FieldRef<"Lesson", 'String'>;
     readonly isProblem: Prisma.FieldRef<"Lesson", 'Boolean'>;
     readonly problemUrl: Prisma.FieldRef<"Lesson", 'String'>;
+    readonly description: Prisma.FieldRef<"Lesson", 'String'>;
     readonly videoUrlOrId: Prisma.FieldRef<"Lesson", 'String'>;
     readonly durationSeconds: Prisma.FieldRef<"Lesson", 'Int'>;
     readonly explanationEndSeconds: Prisma.FieldRef<"Lesson", 'Int'>;

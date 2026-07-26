@@ -170,7 +170,12 @@ export const getStudentDashboardStatsDb = async (userId: string) => {
         orderBy: { updatedAt: "desc" },
         include: {
           lesson: {
-            select: { id: true, title: true, chapterId: true },
+            select: {
+              id: true,
+              title: true,
+              chapterId: true,
+              chapter: { select: { courseId: true } },
+            },
           },
         },
       }),
@@ -189,6 +194,7 @@ export const getStudentDashboardStatsDb = async (userId: string) => {
     resumePoint: lastAccessedLesson
       ? {
           lessonId: lastAccessedLesson.lessonId,
+          courseId: lastAccessedLesson.lesson.chapter?.courseId || "",
           title: lastAccessedLesson.lesson.title,
           timestamp: lastAccessedLesson.highestTimestampSecs,
         }

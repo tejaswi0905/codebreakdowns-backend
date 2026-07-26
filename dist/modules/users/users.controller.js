@@ -37,7 +37,7 @@ export const githubCallback = catchAsync(async (req, res) => {
     });
     // 4. Redirect the user back to the React frontend!
     // Once the cookie is set, we send them to the dashboard so they can start learning.
-    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3001";
+    const frontendUrl = process.env.FRONTEND_URL || "https://codebreakdowns-frontend.vercel.app";
     res.redirect(`${frontendUrl}/dashboard`);
 });
 export const getMyProfile = catchAsync(async (req, res) => {

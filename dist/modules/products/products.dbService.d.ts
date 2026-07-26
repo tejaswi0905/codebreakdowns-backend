@@ -18,6 +18,26 @@ export declare const getActiveProductsDb: () => Promise<({
     priceInr: number;
     compareAtPriceInr: number | null;
 })[]>;
+export declare const getAdminProductsDb: () => Promise<({
+    courses: ({
+        course: {
+            id: string;
+            title: string;
+            imageUrl: string | null;
+        };
+    } & {
+        courseId: string;
+        productId: string;
+    })[];
+} & {
+    id: string;
+    isActive: boolean;
+    title: string;
+    imageUrl: string | null;
+    description: string | null;
+    priceInr: number;
+    compareAtPriceInr: number | null;
+})[]>;
 export declare const createProductDb: (data: any) => Promise<{
     id: string;
     isActive: boolean;

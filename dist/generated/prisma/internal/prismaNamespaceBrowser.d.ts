@@ -58,6 +58,7 @@ export declare const UserScalarFieldEnum: {
     readonly avatarUrl: "avatarUrl";
     readonly role: "role";
     readonly isActive: "isActive";
+    readonly isSuperUser: "isSuperUser";
     readonly paymentGatewayCustomerId: "paymentGatewayCustomerId";
     readonly referralCode: "referralCode";
     readonly payoutUpiId: "payoutUpiId";
@@ -101,6 +102,7 @@ export declare const LessonScalarFieldEnum: {
     readonly title: "title";
     readonly isProblem: "isProblem";
     readonly problemUrl: "problemUrl";
+    readonly description: "description";
     readonly videoUrlOrId: "videoUrlOrId";
     readonly durationSeconds: "durationSeconds";
     readonly explanationEndSeconds: "explanationEndSeconds";

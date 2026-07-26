@@ -6,9 +6,9 @@ export declare const upsertHeartbeatDb: (userId: string, lessonId: string, curre
     userId: string;
     updatedAt: Date;
     lessonId: string;
+    highestTimestampSecs: number;
     isCompleted: boolean;
     isBookmarked: boolean;
-    highestTimestampSecs: number;
 }>;
 /**
  * Fetches the lesson along with its parent course strict-mode configuration
@@ -27,18 +27,19 @@ export declare const getLessonWithProgressDb: (userId: string, lessonId: string)
         userId: string;
         updatedAt: Date;
         lessonId: string;
+        highestTimestampSecs: number;
         isCompleted: boolean;
         isBookmarked: boolean;
-        highestTimestampSecs: number;
     }[];
 } & {
     id: string;
     title: string;
+    description: string | null;
     sortOrder: number;
     chapterId: string;
     isProblem: boolean;
     problemUrl: string | null;
-    videoUrlOrId: string;
+    videoUrlOrId: string | null;
     durationSeconds: number;
     explanationEndSeconds: number | null;
     isPreview: boolean;
@@ -47,9 +48,9 @@ export declare const updateLessonCompletionDb: (userId: string, lessonId: string
     userId: string;
     updatedAt: Date;
     lessonId: string;
+    highestTimestampSecs: number;
     isCompleted: boolean;
     isBookmarked: boolean;
-    highestTimestampSecs: number;
 }>;
 /**
  * The Waterfall Engine: Evaluates if all lessons in a chapter are complete.
@@ -60,9 +61,9 @@ export declare const toggleBookmarkDb: (userId: string, lessonId: string, isBook
     userId: string;
     updatedAt: Date;
     lessonId: string;
+    highestTimestampSecs: number;
     isCompleted: boolean;
     isBookmarked: boolean;
-    highestTimestampSecs: number;
 }>;
 /**
  * Runs 4 concurrent queries to dynamically compute homepage metrics in <5ms.
@@ -76,6 +77,7 @@ export declare const getStudentDashboardStatsDb: (userId: string) => Promise<{
     };
     resumePoint: {
         lessonId: string;
+        courseId: string;
         title: string;
         timestamp: number;
     } | null;

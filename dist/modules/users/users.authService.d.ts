@@ -6,6 +6,7 @@ export declare const processGithubLogin: (code: string) => Promise<{
         avatarUrl: string | null;
         role: import("../../generated/prisma/enums.js").Role;
         isActive: boolean;
+        isSuperUser: boolean;
         paymentGatewayCustomerId: string | null;
         referralCode: string | null;
         payoutUpiId: string | null;
