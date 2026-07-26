@@ -40,27 +40,35 @@ import {
 // };
 
 export const getPurchasedCoursesDb = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { isSuperUser: true },
+  });
+  const isSuperUser = user?.isSuperUser === true;
+
   const courses = await prisma.course.findMany({
     where: {
       isPublished: true,
-      // NEW: Return if the course is free OR if the user owns a bundle containing it
-      OR: [
-        { isFree: true },
-        {
-          bundles: {
-            some: {
-              product: {
-                owners: {
-                  some: {
-                    userId: userId,
-                    OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+      // If Super User, return all published courses without OR filters
+      ...(isSuperUser ? {} : {
+        OR: [
+          { isFree: true },
+          {
+            bundles: {
+              some: {
+                product: {
+                  owners: {
+                    some: {
+                      userId: userId,
+                      OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+                    },
                   },
                 },
               },
             },
           },
-        },
-      ],
+        ],
+      }),
     },
     select: {
       id: true,
@@ -205,21 +213,30 @@ export const getCoursePlayDataDb = async (userId: string | undefined, courseId: 
 
   if (!coursePlayData) return null;
 
-  // 2. Check if the user actually owns this course via UserProduct
+  // 2. Check if the user actually owns this course via UserProduct (or is a Super User)
   let isPurchased = false;
   if (userId) {
-    const ownershipCount = await prisma.userProduct.count({
-      where: {
-        userId: userId,
-        OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
-        product: {
-          courses: {
-            some: { courseId: courseId },
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { isSuperUser: true },
+    });
+
+    if (user?.isSuperUser) {
+      isPurchased = true;
+    } else {
+      const ownershipCount = await prisma.userProduct.count({
+        where: {
+          userId: userId,
+          OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+          product: {
+            courses: {
+              some: { courseId: courseId },
+            },
           },
         },
-      },
-    });
-    isPurchased = ownershipCount > 0;
+      });
+      isPurchased = ownershipCount > 0;
+    }
   }
 
   // 3. Return the data along with the ownership flag

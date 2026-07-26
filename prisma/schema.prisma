@@ -33,6 +33,7 @@ model User {
   avatarUrl                String?
   role                     Role      @default(STUDENT)
   isActive                 Boolean   @default(true) // For soft-deletes
+  isSuperUser              Boolean   @default(false) // Bypasses payment checks for paid courses
   
   // Commerce, Affiliates & Payouts
   paymentGatewayCustomerId String?   @unique // Razorpay Customer ID
