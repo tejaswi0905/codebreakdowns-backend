@@ -47,29 +47,27 @@ export const getPurchasedCoursesDb = async (userId: string) => {
   const isSuperUser = user?.isSuperUser === true;
 
   const courses = await prisma.course.findMany({
-    where: {
-      isPublished: true,
-      // If Super User, return all published courses without OR filters
-      ...(isSuperUser ? {} : {
-        OR: [
-          { isFree: true },
-          {
-            bundles: {
-              some: {
-                product: {
-                  owners: {
-                    some: {
-                      userId: userId,
-                      OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+    where: isSuperUser 
+      ? {} // Super users see all courses
+      : {
+          OR: [
+            { isFree: true, isPublished: true },
+            {
+              bundles: {
+                some: {
+                  product: {
+                    owners: {
+                      some: {
+                        userId: userId,
+                        OR: [{ validUntil: null }, { validUntil: { gt: new Date() } }],
+                      },
                     },
                   },
                 },
               },
             },
-          },
-        ],
-      }),
-    },
+          ],
+        },
     select: {
       id: true,
       title: true,
@@ -238,7 +236,8 @@ export const getCoursePlayDataDb = async (userId: string | undefined, courseId: 
   const coursePlayData = await prisma.course.findFirst({
     where: {
       id: courseId,
-      isPublished: true,
+      // We removed isPublished: true here so owners can still play unpublished courses.
+      // We'll enforce the rule manually below.
     },
     include: {
       chapters: {
@@ -301,7 +300,12 @@ export const getCoursePlayDataDb = async (userId: string | undefined, courseId: 
     }
   }
 
-  // 3. Return the data along with the ownership flag
+  // 3. Prevent access if it's NOT purchased AND NOT published.
+  if (!isPurchased && !coursePlayData.isPublished) {
+    return null;
+  }
+
+  // 4. Return the data along with the ownership flag
   return {
     ...coursePlayData,
     isPurchased,

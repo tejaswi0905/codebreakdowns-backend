@@ -3,9 +3,23 @@ import { NotFoundError } from "../../shared/errors/AppError.js";
 
 export const getActiveProductsDb = async () => {
   return await prisma.product.findMany({
-    where: { isActive: true }, // Only show active products to students
+    where: { 
+      isActive: true,
+      courses: {
+        some: {
+          course: {
+            isPublished: true,
+          }
+        }
+      }
+    }, // Only show active products that contain at least one published course
     include: {
       courses: {
+        where: {
+          course: {
+            isPublished: true,
+          }
+        },
         include: {
           course: {
             select: { id: true, title: true, imageUrl: true },
