@@ -6,6 +6,8 @@ import {
   createChapter,
   createCourse,
   createLesson,
+  updateLesson,
+  deleteLesson,
   reorderChapters,
   reorderLessons,
   getAdminCourseById,
@@ -64,6 +66,22 @@ coursesRouter.post(
   "/:courseId/chapters/:chapterId/lessons",
   adminAuthCheck,
   createLesson,
+);
+
+// PUT /api/v1/courses/:courseId/chapters/:chapterId/lessons/:lessonId
+// Protected: Only Admins can update lessons
+coursesRouter.put(
+  "/:courseId/chapters/:chapterId/lessons/:lessonId",
+  adminAuthCheck,
+  updateLesson,
+);
+
+// DELETE /api/v1/courses/:courseId/chapters/:chapterId/lessons/:lessonId
+// Protected: Only Admins can delete lessons
+coursesRouter.delete(
+  "/:courseId/chapters/:chapterId/lessons/:lessonId",
+  adminAuthCheck,
+  deleteLesson,
 );
 
 // PUT /api/v1/courses/:courseId/chapters/reorder

@@ -503,3 +503,46 @@ export const reorderLessonsDb = async (
     return true;
   });
 };
+
+export const updateLessonDb = async (
+  lessonId: string,
+  data: {
+    title?: string;
+    videoUrlOrId?: string;
+    durationSeconds?: number;
+    isProblem?: boolean;
+    problemUrl?: string;
+    explanationEndSeconds?: number;
+    description?: string;
+    isPreview?: boolean;
+    imageUrl?: string;
+  },
+) => {
+  const existingLesson = await prisma.lesson.findUnique({
+    where: { id: lessonId },
+  });
+
+  if (!existingLesson) {
+    throw new NotFoundError("Lesson not found.");
+  }
+
+  return await prisma.lesson.update({
+    where: { id: lessonId },
+    data,
+  });
+};
+
+export const deleteLessonDb = async (lessonId: string) => {
+  const existingLesson = await prisma.lesson.findUnique({
+    where: { id: lessonId },
+  });
+
+  if (!existingLesson) {
+    throw new NotFoundError("Lesson not found.");
+  }
+
+  return await prisma.lesson.delete({
+    where: { id: lessonId },
+  });
+};
+

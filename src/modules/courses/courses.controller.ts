@@ -15,12 +15,15 @@ import {
   getAdminCourseByIdDb,
   getAdminCoursesDb,
   updateCourseDb,
+  updateLessonDb,
+  deleteLessonDb,
 } from "./courses.dbService.js";
 import { generateBunnyVideoToken } from "../../utils/bunny.js";
 import {
   createCourseSchema,
   createChapterSchema,
   createLessonSchema,
+  updateLessonSchema,
   reorderSchema,
   updateCourseSchema,
 } from "./courses.schemas.js";
@@ -204,6 +207,42 @@ export const createLesson = catchAsync(async (req: Request, res: Response) => {
   );
 
   sendSuccess(res, 201, newLesson, "Lesson created successfully");
+});
+
+/**
+ * @route   PUT /api/v1/courses/:courseId/chapters/:chapterId/lessons/:lessonId
+ * @desc    Update an existing lesson (title, video link, duration, problem info, etc.)
+ * @access  Strictly Admin
+ */
+export const updateLesson = catchAsync(async (req: Request, res: Response) => {
+  const { lessonId } = req.params;
+
+  const parseResult = updateLessonSchema.safeParse({ body: req.body });
+
+  if (!parseResult.success) {
+    const errorMessages = parseResult.error.issues
+      .map((err: any) => err.message)
+      .join(", ");
+    throw new BadRequestError(`Validation failed: ${errorMessages}`);
+  }
+
+  const updatedLesson = await updateLessonDb(
+    lessonId as string,
+    parseResult.data.body as Parameters<typeof updateLessonDb>[1],
+  );
+
+  sendSuccess(res, 200, updatedLesson, "Lesson updated successfully");
+});
+
+/**
+ * @route   DELETE /api/v1/courses/:courseId/chapters/:chapterId/lessons/:lessonId
+ * @desc    Delete a lesson from a chapter
+ * @access  Strictly Admin
+ */
+export const deleteLesson = catchAsync(async (req: Request, res: Response) => {
+  const { lessonId } = req.params;
+  await deleteLessonDb(lessonId as string);
+  sendSuccess(res, 200, null, "Lesson deleted successfully");
 });
 
 export const reorderChapters = catchAsync(async (req: Request, res: Response) => {
